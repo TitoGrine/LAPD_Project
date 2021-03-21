@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id "com.google.protobuf" version "0.8.15"
 }
 
 group 'org.feup.lapd.middleware'
@@ -11,7 +12,10 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.4.21"
+    implementation "io.ktor:ktor-server-core:1.5.2"
+    implementation "io.ktor:ktor-server-netty:1.5.2"
+    implementation "ch.qos.logback:logback-classic:1.2.3"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:1.7.0'
 }
