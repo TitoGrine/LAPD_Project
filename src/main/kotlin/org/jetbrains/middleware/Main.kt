@@ -1,17 +1,21 @@
 package org.jetbrains.middleware
 
-import io.ktor.application.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
+import org.jetbrains.middleware.builder.*
 
+// Example to play around with
 fun main() {
-    embeddedServer(Netty, port = 8000) {
-        routing {
-            get("/"){
-                call.respondText("Hello World!")
+    MiddlewareServer.Builder<String>()
+        .portToServe(8000)
+        .serverUrl("http://localhost:8000")
+        .addRequest(RequestDetails("/meias", RequestData(object : RequestParams<String> {
+            override fun encode(): String {
+                return "Socks"
             }
-        }
-    }.start(wait = true)
+        }, object : RequestResponse {
+            override fun decode() {
+
+            }
+        })))
+        .build()
+        .start()
 }
