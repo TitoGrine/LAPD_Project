@@ -1,15 +1,22 @@
 package org.jetbrains.middleware.builder
 
-import com.google.gson.Gson
+/** To then decode the values using Jackson
+    val mapper = jacksonObjectMapper()
+    val typeFactory = mapper.typeFactory
+    val mapType = typeFactory.constructMapType(HashMap::class.java, String::class.java, Any::class.java)
+**/
 
-data class RequestDetails<T>(val url: String, val requestData: RequestData<T>)
 
-data class RequestData<T>(val params: RequestParams<T>, val response: RequestResponse)
+data class RequestDetails<T, K>(val url: String, val requestData: RequestData<T, K>)
 
-interface RequestParams<T>{
+data class RequestData<T, K>(val params: RequestParams<T, K>, val response: RequestResponse<T, K>)
+
+interface RequestParams<T, K>{
+    val data: K
     fun encode(): T
 }
 
-interface RequestResponse{
-    fun decode()
+interface RequestResponse<T, K>{
+    val data: T
+    fun decode() : K
 }
