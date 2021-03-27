@@ -2,11 +2,16 @@ plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.30'
     id "com.google.protobuf" version "0.8.15"
+    id 'application'
 }
 
 group 'org.feup.lapd.middleware'
 version '1.0-SNAPSHOT'
 def ktor_version = '1.5.2'
+
+application {
+    mainClass = 'com.proto.ApplicationKt'
+}
 
 repositories {
     mavenCentral()
