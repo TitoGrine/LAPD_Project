@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.30'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.4.30'
     id "com.google.protobuf" version "0.8.15"
     id 'application'
 }
@@ -10,7 +11,7 @@ version '1.0-SNAPSHOT'
 def ktor_version = '1.5.2'
 
 application {
-    mainClass = 'com.proto.ApplicationKt'
+    mainClass = 'io.ktor.server.netty.EngineMain'
 }
 
 repositories {
@@ -22,6 +23,8 @@ dependencies {
     implementation "io.ktor:ktor-server-core:$ktor_version"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-jackson:$ktor_version"
+    implementation "io.ktor:ktor-serialization:$ktor_version"
+    implementation "io.ktor:ktor-serialization-protobuf:$ktor_version"
     implementation group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.15.6'
     implementation "ch.qos.logback:logback-classic:1.2.3"
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
