@@ -9,39 +9,41 @@ import io.ktor.server.netty.*
 import org.jetbrains.middleware.builder.strategies.APITypeStrategy
 import java.net.URI
 
-class MiddlewareServer<T, K> private constructor(
+class MiddlewareServer<T> private constructor(
     val portToServe: Int,
     val serverUrl: URI,
     val wait: Boolean,
-    val requests: Map<String, RequestData<T, K>>,
-    val strategy: APITypeStrategy<T, K>
+    val requests: Map<String, RequestData<T>>,
+    val strategy: APITypeStrategy<T>
 ) {
-    data class Builder<T, K>(
+    data class Builder<T>(
         var portToServe: Int = 80,
         var serverUrl: URI? = null,
         var wait: Boolean = true,
-        val requests: MutableMap<String, RequestData<T, K>> = mutableMapOf(),
-        var strategy: APITypeStrategy<T, K>
+        val requests: MutableMap<String, RequestData<T>> = mutableMapOf(),
+        var strategy: APITypeStrategy<T>? = null
     ) {
-        fun portToServe(portToServe: Int): Builder<T, K> = apply { this.portToServe = portToServe }
-        fun serverUrl(serverUrl: String): Builder<T, K> = apply { this.serverUrl = URI.create(serverUrl) }
-        fun setStrategy(strategy: APITypeStrategy<T, K>): Builder<T, K> = apply { this.strategy = strategy }
-        fun addRequest(requestDetails: RequestDetails<T, K>): Builder<T, K> =
+        fun portToServe(portToServe: Int): Builder<T> = apply { this.portToServe = portToServe }
+        fun serverUrl(serverUrl: String): Builder<T> = apply { this.serverUrl = URI.create(serverUrl) }
+        fun setStrategy(strategy: APITypeStrategy<T>): Builder<T> = apply { this.strategy = strategy }
+        fun addRequest(requestDetails: RequestDetails<T>): Builder<T> =
             apply { this.requests[requestDetails.url] = requestDetails.requestData }
 
-        fun addRequests(requestsDetails: List<RequestDetails<T, K>>): Builder<T, K> =
+        fun addRequests(requestsDetails: List<RequestDetails<T>>): Builder<T> =
             apply { requestsDetails.forEach { requestDetails -> this.addRequest(requestDetails) } }
 
-        fun wait(wait: Boolean): Builder<T, K> = apply { this.wait = wait }
-        fun build(): MiddlewareServer<T, K> =
-            guardLet(serverUrl) { throw Exception("No server url provided") }.let { (serverUrl) ->
+        fun wait(wait: Boolean): Builder<T> = apply { this.wait = wait }
+        fun build(): MiddlewareServer<T> =
+            if(serverUrl != null && strategy != null) {
                 MiddlewareServer(
                     portToServe,
-                    serverUrl,
+                    serverUrl!!,
                     wait,
                     requests.toMap(),
-                    strategy
+                    strategy!!
                 )
+            } else {
+                throw Exception("No server url provided")
             }
     }
 

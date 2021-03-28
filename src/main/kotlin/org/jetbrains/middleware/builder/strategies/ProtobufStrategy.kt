@@ -8,12 +8,12 @@ import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat
 import org.jetbrains.middleware.builder.RequestResponse
 
-class ProtobufStrategy<K>: APITypeStrategy<Message,K>() {
-    override fun sendRequest(url: String, requestData: RequestData<Message, K>) {
+class ProtobufStrategy: APITypeStrategy<Message, >() {
+    override fun sendRequest(url: String, requestData: RequestData<Message>) {
 
     }
 
-    data class ProtobufParams(override val data: Message.Builder): RequestParams<Message, Message.Builder> {
+    data class ProtobufParams(val data: Message.Builder): RequestParams<Message> {
         override fun encode(body: String): Message {
             val builder = data.clone()
             JsonFormat.parser().ignoringUnknownFields().merge(body, builder)
@@ -21,7 +21,7 @@ class ProtobufStrategy<K>: APITypeStrategy<Message,K>() {
         }
     }
 
-    data class ProtobufResponse(override val data: Descriptors.Descriptor): RequestResponse<Message, Descriptors.Descriptor> {
+    data class ProtobufResponse(val data: Descriptors.Descriptor): RequestResponse<Message> {
         override fun decode(body: String): Message = DynamicMessage.parseFrom(data, body.toByteArray())
     }
 }

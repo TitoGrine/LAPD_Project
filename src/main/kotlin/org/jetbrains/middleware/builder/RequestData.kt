@@ -7,16 +7,14 @@ package org.jetbrains.middleware.builder
 **/
 
 
-data class RequestDetails<T, K>(val url: String, val requestData: RequestData<T, K>)
+data class RequestDetails<T>(val url: String, val requestData: RequestData<T>)
 
-data class RequestData<T, K>(val params: RequestParams<T, K>, val response: RequestResponse<T, K>)
+data class RequestData<T>(val params: RequestParams<T>, val response: RequestResponse<T>)
 
-interface RequestParams<T, K>{
-    val data: K
+interface RequestParams<T>{
     fun encode(body: String): T
 }
 
-interface RequestResponse<T, K>{
-    val data: K
+interface RequestResponse<T>{
     fun decode(body: String) : T
 }
