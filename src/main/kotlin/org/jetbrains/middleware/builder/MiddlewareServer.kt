@@ -52,8 +52,9 @@ class MiddlewareServer<T> private constructor(
             routing {
                 requests.forEach { (url, requestData) ->
                     post(url) {
-                        strategy.sendRequest(url, requestData);
-                        context.respondText("Got request in ${call.request.uri}")
+                        //val parameters = call.receive<String>();
+                        val response = strategy.sendRequest(serverUrl.toString()+url, requestData, "")
+                        context.respondText(response)
                     }
                 }
             }

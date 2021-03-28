@@ -10,10 +10,10 @@ fun main() {
     MiddlewareServer.Builder<Message>()
         .portToServe(8000)
         .setStrategy(ProtobufStrategy())
-        .serverUrl("http://localhost:8000")
+        .serverUrl("http://localhost:8080")
         .addRequest(
             RequestDetails(
-                "/meas",
+                "/message",
                 RequestData(
                     ProtobufStrategy.ProtobufParams(MessageOuterClass.Message.newBuilder()),
                     ProtobufStrategy.ProtobufResponse(MessageOuterClass.Message.getDescriptor())

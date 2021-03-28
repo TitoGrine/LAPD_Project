@@ -1,5 +1,3 @@
-syntax = "proto2";
-
 message Message {
 	required string id = 1;
 	required string sender = 2;
