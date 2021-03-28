@@ -17,7 +17,7 @@ class ProtobufStrategy: APITypeStrategy<Message>() {
         val client = HttpClient(CIO);
         val response = client.get<String>(url+"/1")
         print(requestData.response.decode(response))
-        return requestData.response.decode(response).to()
+        return requestData.response.decode(response).toString();
     }
 
     data class ProtobufParams(val data: Message.Builder): RequestParams<Message> {
