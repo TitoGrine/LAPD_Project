@@ -3,7 +3,7 @@ package org.jetbrains.middleware
 import com.google.protobuf.*
 import org.jetbrains.middleware.builder.*
 import org.jetbrains.middleware.builder.strategies.ProtobufStrategy
-import java.io.InputStream
+import org.jetbrains.middleware.proto.*
 
 // Example to play around with
 fun main() {
@@ -11,15 +11,15 @@ fun main() {
         .portToServe(8000)
         .setStrategy(ProtobufStrategy())
         .serverUrl("http://localhost:8000")
-        /*.addRequest(
+        .addRequest(
             RequestDetails(
                 "/meas",
                 RequestData(
-                    ProtobufStrategy.ProtobufParams(),
-                    ProtobufStrategy.ProtobufResponse()
+                    ProtobufStrategy.ProtobufParams(MessageOuterClass.Message.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(MessageOuterClass.Message.getDescriptor())
                 )
             )
-        )*/
+        )
         .build()
         .start()
 }
