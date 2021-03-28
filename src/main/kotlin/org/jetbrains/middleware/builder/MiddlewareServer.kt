@@ -6,22 +6,26 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import org.jetbrains.middleware.builder.strategies.APITypeStrategy
 import java.net.URI
 
 class MiddlewareServer<T, K> private constructor(
     val portToServe: Int,
     val serverUrl: URI,
     val wait: Boolean,
-    val requests: Map<String, RequestData<T, K>>
+    val requests: Map<String, RequestData<T, K>>,
+    val strategy: APITypeStrategy<T, K>
 ) {
     data class Builder<T, K>(
         var portToServe: Int = 80,
         var serverUrl: URI? = null,
         var wait: Boolean = true,
-        val requests: MutableMap<String, RequestData<T, K>> = mutableMapOf()
+        val requests: MutableMap<String, RequestData<T, K>> = mutableMapOf(),
+        var strategy: APITypeStrategy<T, K>
     ) {
         fun portToServe(portToServe: Int): Builder<T, K> = apply { this.portToServe = portToServe }
         fun serverUrl(serverUrl: String): Builder<T, K> = apply { this.serverUrl = URI.create(serverUrl) }
+        fun setStrategy(strategy: APITypeStrategy<T, K>): Builder<T, K> = apply { this.strategy = strategy }
         fun addRequest(requestDetails: RequestDetails<T, K>): Builder<T, K> =
             apply { this.requests[requestDetails.url] = requestDetails.requestData }
 
@@ -36,6 +40,7 @@ class MiddlewareServer<T, K> private constructor(
                     serverUrl,
                     wait,
                     requests.toMap(),
+                    strategy
                 )
             }
     }
@@ -43,9 +48,9 @@ class MiddlewareServer<T, K> private constructor(
     fun start(): NettyApplicationEngine {
         return embeddedServer(Netty, port = portToServe) {
             routing {
-                requests.forEach { (url, _) ->
+                requests.forEach { (url, requestData) ->
                     post(url) {
-                        //TODO: Interpret request data
+                        strategy.sendRequest(url, requestData);
                         context.respondText("Got request in ${call.request.uri}")
                     }
                 }

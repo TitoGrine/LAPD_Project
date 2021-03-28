@@ -13,10 +13,10 @@ data class RequestData<T, K>(val params: RequestParams<T, K>, val response: Requ
 
 interface RequestParams<T, K>{
     val data: K
-    fun encode(): T
+    fun encode(body: String): T
 }
 
 interface RequestResponse<T, K>{
-    val data: T
-    fun decode() : K
+    val data: K
+    fun decode(body: String) : T
 }
