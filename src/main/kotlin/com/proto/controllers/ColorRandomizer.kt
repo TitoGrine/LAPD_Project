@@ -1,6 +1,5 @@
 package com.proto.controllers
 
-import com.google.protobuf.ByteString
 import com.proto.models.Colors
 import kotlin.random.Random
 
@@ -20,9 +19,9 @@ fun getRandomHexColor(): Colors.HEX {
 
 fun getRandomRGBColor(): Colors.RGB {
     return Colors.RGB.newBuilder()
-        .setRed((0..256).random())
-        .setGreen((0..256).random())
-        .setBlue((0..256).random())
+        .setRed((0..255).random())
+        .setGreen((0..255).random())
+        .setBlue((0..255).random())
         .build()
 }
 

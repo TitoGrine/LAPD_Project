@@ -1,6 +1,7 @@
 package com.proto.controllers
 
 import com.proto.models.Colors
+import kotlin.math.max
 
 fun convertColor(request: Colors.ColorConversionRequest): Colors.ColorConversionResponse? {
     var originalColor = request.color
@@ -30,14 +31,24 @@ fun convertRGBColor(color: Colors.RGB, toModel: Colors.ColorMode): Colors.Color?
     var green = color.green
     var blue = color.blue
 
-    when(toModel){
+    return when(toModel){
         Colors.ColorMode.HEX_MODE -> null
-        Colors.ColorMode.RGB_MODE -> null
-        Colors.ColorMode.CMYK_MODE -> null
+        Colors.ColorMode.RGB_MODE -> buildRGBColor(red, green, blue)
+        Colors.ColorMode.CMYK_MODE -> {
+            var Rc: Float = (red / 255.0).toFloat()
+            var Gc: Float = (green / 255.0).toFloat()
+            var Bc: Float = (blue / 255.0).toFloat()
+
+            var Kf = max(max(Rc, Gc), Bc)
+
+            var cyan = (1 - Rc - Kf) / Kf
+            var magenta = (1 - Gc - Kf) / Kf
+            var yellow = (1 - Bc - Kf) / Kf
+
+            return buildCMYKColor(cyan, magenta, yellow, 1 - Kf)
+        }
         Colors.ColorMode.HSV_MODE -> null
     }
-
-    return null
 }
 
 fun convertCMYKColor(color: Colors.CMYK, toModel: Colors.ColorMode): Colors.Color? {
