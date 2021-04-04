@@ -44,13 +44,13 @@ fun convertRGBColor(color: Colors.RGB, toModel: Colors.ColorMode): Colors.Color?
             val Gc: Float = (green / 255.0).toFloat()
             val Bc: Float = (blue / 255.0).toFloat()
 
-            val Kf = max(max(Rc, Gc), Bc)
+            val K = 1 - max(max(Rc, Gc), Bc)
 
-            val cyan = (1 - Rc - Kf) / Kf
-            val magenta = (1 - Gc - Kf) / Kf
-            val yellow = (1 - Bc - Kf) / Kf
+            val cyan = (1 - Rc - K) / (1 - K)
+            val magenta = (1 - Gc - K) / (1 - K)
+            val yellow = (1 - Bc - K) / (1 - K)
 
-            return buildCMYKColor(cyan, magenta, yellow, 1 - Kf)
+            return buildCMYKColor(cyan, magenta, yellow, K)
         }
         Colors.ColorMode.HSV_MODE -> null
     }
