@@ -22,12 +22,14 @@ fun buildHEXColor(hexDef: Colors.HEX): Colors.Color {
 }
 
 fun buildHEXColor(code: String): Colors.Color {
-    return buildHEXColor(
-        Colors.HEX
+    return buildHEXColor(buildHEX(code))
+}
+
+fun buildHEX(code: String): Colors.HEX {
+    return Colors.HEX
             .newBuilder()
             .setCode(code)
             .build()
-    )
 }
 
 fun buildRGBColor(rgbDef: Colors.RGB): Colors.Color {
@@ -50,14 +52,16 @@ fun buildRGBColor(rgbDef: Colors.RGB): Colors.Color {
 }
 
 fun buildRGBColor(red: Int, green: Int, blue: Int): Colors.Color {
-    return buildRGBColor(
-        Colors.RGB
+    return buildRGBColor(buildRGB(red, green, blue))
+}
+
+fun buildRGB(red: Int, green: Int, blue: Int): Colors.RGB {
+    return Colors.RGB
             .newBuilder()
             .setRed(red)
             .setGreen(green)
             .setBlue(blue)
             .build()
-    )
 }
 
 fun buildCMYKColor(cmykDef: Colors.CMYK): Colors.Color {
@@ -80,15 +84,17 @@ fun buildCMYKColor(cmykDef: Colors.CMYK): Colors.Color {
 }
 
 fun buildCMYKColor(cyan: Float, magenta: Float, yellow: Float, key: Float): Colors.Color {
-    return buildCMYKColor(
-        Colors.CMYK
+    return buildCMYKColor(buildCMYK(cyan, magenta, yellow, key))
+}
+
+fun buildCMYK(cyan: Float, magenta: Float, yellow: Float, key: Float): Colors.CMYK {
+    return Colors.CMYK
             .newBuilder()
             .setCyan(cyan)
             .setMagenta(magenta)
             .setYellow(yellow)
             .setKey(key)
             .build()
-    )
 }
 
 fun buildHSVColor(hsvDef: Colors.HSV): Colors.Color {
@@ -111,12 +117,14 @@ fun buildHSVColor(hsvDef: Colors.HSV): Colors.Color {
 }
 
 fun buildHSVColor(hue: Int, saturation: Float, value: Float): Colors.Color {
-    return buildHSVColor(
-        Colors.HSV
+    return buildHSVColor(hue, saturation, value)
+}
+
+fun buildHSV(hue: Int, saturation: Float, value: Float): Colors.HSV {
+    return Colors.HSV
             .newBuilder()
             .setHue(hue)
             .setSaturation(saturation)
             .setValue(value)
             .build()
-    )
 }
