@@ -18,8 +18,6 @@ fun Route.rgbRouting() {
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
-            print("""Converted color = ${conversionRequest.toString()}""")
-
             val conversionResponse = convertColor(conversionRequest)
 
             if(conversionResponse == null)
