@@ -3,9 +3,7 @@ package com.proto.controllers
 import com.proto.models.Colors
 
 fun buildHEXColor(hexDef: Colors.HEX): Colors.Color {
-    //TODO: Automatically check if websafe and get name
     var webSafe = isWebSafe(hexDef)
-    var name = ""
 
     return Colors.Color
         .newBuilder()
@@ -17,7 +15,6 @@ fun buildHEXColor(hexDef: Colors.HEX): Colors.Color {
                 )
         )
         .setWebSafe(webSafe)
-        .setName(name)
         .build()
 }
 
@@ -33,9 +30,7 @@ fun buildHEX(code: String): Colors.HEX {
 }
 
 fun buildRGBColor(rgbDef: Colors.RGB): Colors.Color {
-    //TODO: Automatically check if websafe and get name
     var webSafe = isWebSafe(rgbDef)
-    var name = ""
 
     return Colors.Color
         .newBuilder()
@@ -47,7 +42,6 @@ fun buildRGBColor(rgbDef: Colors.RGB): Colors.Color {
                 )
         )
         .setWebSafe(webSafe)
-        .setName(name)
         .build()
 }
 
@@ -65,9 +59,7 @@ fun buildRGB(red: Int, green: Int, blue: Int): Colors.RGB {
 }
 
 fun buildCMYKColor(cmykDef: Colors.CMYK): Colors.Color {
-    //TODO: Automatically check if websafe and get name
     var webSafe = isWebSafe(cmykDef)
-    var name = ""
 
     return Colors.Color
         .newBuilder()
@@ -79,7 +71,6 @@ fun buildCMYKColor(cmykDef: Colors.CMYK): Colors.Color {
                 )
         )
         .setWebSafe(webSafe)
-        .setName(name)
         .build()
 }
 
@@ -98,9 +89,7 @@ fun buildCMYK(cyan: Float, magenta: Float, yellow: Float, key: Float): Colors.CM
 }
 
 fun buildHSVColor(hsvDef: Colors.HSV): Colors.Color {
-    //TODO: Automatically check if websafe and get name
     var webSafe = isWebSafe(hsvDef)
-    var name = ""
 
     return Colors.Color
         .newBuilder()
@@ -112,7 +101,6 @@ fun buildHSVColor(hsvDef: Colors.HSV): Colors.Color {
                 )
         )
         .setWebSafe(webSafe)
-        .setName(name)
         .build()
 }
 
