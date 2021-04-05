@@ -14,16 +14,13 @@ fun convertColor(request: Colors.ColorConversionRequest): Colors.ColorConversion
         else -> null
     }
 
-    return (
-            if (convertedColor == null)
-                null
-            else
-                Colors.ColorConversionResponse
-                    .newBuilder()
-                    .setColor(convertedColor)
-                    .setColorMode(requestedType)
-                    .build()
-            )
+    return convertedColor?.let{
+        Colors.ColorConversionResponse
+            .newBuilder()
+            .setColor(convertedColor)
+            .setColorMode(requestedType)
+            .build()
+    }
 }
 
 fun convertHexColor(color: Colors.HEX, toModel: Colors.ColorMode): Colors.Color? = when (toModel) {

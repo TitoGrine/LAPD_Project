@@ -13,7 +13,7 @@ fun getRandomHexColor(): Colors.HEX {
     }
 
     return Colors.HEX.newBuilder()
-        .setCode("#" + String(hexCode))
+        .setCode("#$hexCode")
         .build()
 }
 
