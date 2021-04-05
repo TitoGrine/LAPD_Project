@@ -24,6 +24,8 @@ object ColorsSerializer : ContentConverter {
                 Colors.Color::class -> Colors.Color.parseFrom(channel.toInputStream())
                 Colors.ColorConversionRequest::class -> Colors.ColorConversionRequest.parseFrom(channel.toInputStream())
                 Colors.ColorConversionResponse::class -> Colors.ColorConversionResponse.parseFrom(channel.toInputStream())
+                Colors.ColorPaletteRequest::class -> Colors.ColorPaletteRequest.parseFrom(channel.toInputStream())
+                Colors.ColorPaletteResponse::class -> Colors.ColorPaletteResponse.parseFrom(channel.toInputStream())
                 else -> null
             }
         }
@@ -41,6 +43,8 @@ object ColorsSerializer : ContentConverter {
             is Colors.Color -> (value as? Colors.Color)?.toByteArray()
             is Colors.ColorConversionRequest -> (value as? Colors.ColorConversionRequest)?.toByteArray()
             is Colors.ColorConversionResponse -> (value as? Colors.ColorConversionResponse)?.toByteArray()
+            is Colors.ColorPaletteRequest -> (value as? Colors.ColorPaletteRequest)?.toByteArray()
+            is Colors.ColorPaletteResponse -> (value as? Colors.ColorPaletteResponse)?.toByteArray()
             else -> null
         }
     }

@@ -60,20 +60,10 @@ message ColorConversionResponse {
     required Color color = 2;
 }
 
-enum Type {
-	MONOCHROMATIC = 0;
-	COMPLEMENTARY = 1;
-	ANALOGOUS	  = 2;
-	TRIADIC		  = 3;
-	TETRADIC	  = 4;
-}
-
 message ColorPaletteRequest {
-    required Type type = 1;
-    required Color color = 2;
+    required Color color = 1;
 }
 
 message ColorPaletteResponse {
-    required Type type = 1;
-    repeated Color palette = 2;
+    repeated Color palette = 1;
 }

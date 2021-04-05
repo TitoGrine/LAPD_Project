@@ -128,129 +128,6 @@ public final class Colors {
     // @@protoc_insertion_point(enum_scope:models.ColorMode)
   }
 
-  /**
-   * Protobuf enum {@code models.Type}
-   */
-  public enum Type
-      implements com.google.protobuf.ProtocolMessageEnum {
-    /**
-     * <code>MONOCHROMATIC = 0;</code>
-     */
-    MONOCHROMATIC(0),
-    /**
-     * <code>COMPLEMENTARY = 1;</code>
-     */
-    COMPLEMENTARY(1),
-    /**
-     * <code>ANALOGOUS = 2;</code>
-     */
-    ANALOGOUS(2),
-    /**
-     * <code>TRIADIC = 3;</code>
-     */
-    TRIADIC(3),
-    /**
-     * <code>TETRADIC = 4;</code>
-     */
-    TETRADIC(4),
-    ;
-
-    /**
-     * <code>MONOCHROMATIC = 0;</code>
-     */
-    public static final int MONOCHROMATIC_VALUE = 0;
-    /**
-     * <code>COMPLEMENTARY = 1;</code>
-     */
-    public static final int COMPLEMENTARY_VALUE = 1;
-    /**
-     * <code>ANALOGOUS = 2;</code>
-     */
-    public static final int ANALOGOUS_VALUE = 2;
-    /**
-     * <code>TRIADIC = 3;</code>
-     */
-    public static final int TRIADIC_VALUE = 3;
-    /**
-     * <code>TETRADIC = 4;</code>
-     */
-    public static final int TETRADIC_VALUE = 4;
-
-
-    public final int getNumber() {
-      return value;
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     * @deprecated Use {@link #forNumber(int)} instead.
-     */
-    @java.lang.Deprecated
-    public static Type valueOf(int value) {
-      return forNumber(value);
-    }
-
-    /**
-     * @param value The numeric wire value of the corresponding enum entry.
-     * @return The enum associated with the given numeric wire value.
-     */
-    public static Type forNumber(int value) {
-      switch (value) {
-        case 0: return MONOCHROMATIC;
-        case 1: return COMPLEMENTARY;
-        case 2: return ANALOGOUS;
-        case 3: return TRIADIC;
-        case 4: return TETRADIC;
-        default: return null;
-      }
-    }
-
-    public static com.google.protobuf.Internal.EnumLiteMap<Type>
-        internalGetValueMap() {
-      return internalValueMap;
-    }
-    private static final com.google.protobuf.Internal.EnumLiteMap<
-        Type> internalValueMap =
-          new com.google.protobuf.Internal.EnumLiteMap<Type>() {
-            public Type findValueByNumber(int number) {
-              return Type.forNumber(number);
-            }
-          };
-
-    public final com.google.protobuf.Descriptors.EnumValueDescriptor
-        getValueDescriptor() {
-      return getDescriptor().getValues().get(ordinal());
-    }
-    public final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptorForType() {
-      return getDescriptor();
-    }
-    public static final com.google.protobuf.Descriptors.EnumDescriptor
-        getDescriptor() {
-      return com.proto.models.Colors.getDescriptor().getEnumTypes().get(1);
-    }
-
-    private static final Type[] VALUES = values();
-
-    public static Type valueOf(
-        com.google.protobuf.Descriptors.EnumValueDescriptor desc) {
-      if (desc.getType() != getDescriptor()) {
-        throw new java.lang.IllegalArgumentException(
-          "EnumValueDescriptor is not for this type.");
-      }
-      return VALUES[desc.getIndex()];
-    }
-
-    private final int value;
-
-    private Type(int value) {
-      this.value = value;
-    }
-
-    // @@protoc_insertion_point(enum_scope:models.Type)
-  }
-
   public interface ColorOrBuilder extends
       // @@protoc_insertion_point(interface_extends:models.Color)
       com.google.protobuf.MessageOrBuilder {
@@ -7122,28 +6999,17 @@ public final class Colors {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .models.Type type = 1;</code>
-     * @return Whether the type field is set.
-     */
-    boolean hasType();
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return The type.
-     */
-    com.proto.models.Colors.Type getType();
-
-    /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      * @return Whether the color field is set.
      */
     boolean hasColor();
     /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      * @return The color.
      */
     com.proto.models.Colors.Color getColor();
     /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      */
     com.proto.models.Colors.ColorOrBuilder getColorOrBuilder();
   }
@@ -7160,7 +7026,6 @@ public final class Colors {
       super(builder);
     }
     private ColorPaletteRequest() {
-      type_ = 0;
     }
 
     @java.lang.Override
@@ -7194,21 +7059,9 @@ public final class Colors {
             case 0:
               done = true;
               break;
-            case 8: {
-              int rawValue = input.readEnum();
-                @SuppressWarnings("deprecation")
-              com.proto.models.Colors.Type value = com.proto.models.Colors.Type.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                type_ = rawValue;
-              }
-              break;
-            }
-            case 18: {
+            case 10: {
               com.proto.models.Colors.Color.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) != 0)) {
+              if (((bitField0_ & 0x00000001) != 0)) {
                 subBuilder = color_.toBuilder();
               }
               color_ = input.readMessage(com.proto.models.Colors.Color.PARSER, extensionRegistry);
@@ -7216,7 +7069,7 @@ public final class Colors {
                 subBuilder.mergeFrom(color_);
                 color_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000002;
+              bitField0_ |= 0x00000001;
               break;
             }
             default: {
@@ -7252,37 +7105,18 @@ public final class Colors {
     }
 
     private int bitField0_;
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return Whether the type field is set.
-     */
-    @java.lang.Override public boolean hasType() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override public com.proto.models.Colors.Type getType() {
-      @SuppressWarnings("deprecation")
-      com.proto.models.Colors.Type result = com.proto.models.Colors.Type.valueOf(type_);
-      return result == null ? com.proto.models.Colors.Type.MONOCHROMATIC : result;
-    }
-
-    public static final int COLOR_FIELD_NUMBER = 2;
+    public static final int COLOR_FIELD_NUMBER = 1;
     private com.proto.models.Colors.Color color_;
     /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      * @return Whether the color field is set.
      */
     @java.lang.Override
     public boolean hasColor() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      * @return The color.
      */
     @java.lang.Override
@@ -7290,7 +7124,7 @@ public final class Colors {
       return color_ == null ? com.proto.models.Colors.Color.getDefaultInstance() : color_;
     }
     /**
-     * <code>required .models.Color color = 2;</code>
+     * <code>required .models.Color color = 1;</code>
      */
     @java.lang.Override
     public com.proto.models.Colors.ColorOrBuilder getColorOrBuilder() {
@@ -7304,10 +7138,6 @@ public final class Colors {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasColor()) {
         memoizedIsInitialized = 0;
         return false;
@@ -7324,10 +7154,7 @@ public final class Colors {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeEnum(1, type_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(2, getColor());
+        output.writeMessage(1, getColor());
       }
       unknownFields.writeTo(output);
     }
@@ -7340,11 +7167,7 @@ public final class Colors {
       size = 0;
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, type_);
-      }
-      if (((bitField0_ & 0x00000002) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getColor());
+          .computeMessageSize(1, getColor());
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -7361,10 +7184,6 @@ public final class Colors {
       }
       com.proto.models.Colors.ColorPaletteRequest other = (com.proto.models.Colors.ColorPaletteRequest) obj;
 
-      if (hasType() != other.hasType()) return false;
-      if (hasType()) {
-        if (type_ != other.type_) return false;
-      }
       if (hasColor() != other.hasColor()) return false;
       if (hasColor()) {
         if (!getColor()
@@ -7381,10 +7200,6 @@ public final class Colors {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasType()) {
-        hash = (37 * hash) + TYPE_FIELD_NUMBER;
-        hash = (53 * hash) + type_;
-      }
       if (hasColor()) {
         hash = (37 * hash) + COLOR_FIELD_NUMBER;
         hash = (53 * hash) + getColor().hashCode();
@@ -7523,14 +7338,12 @@ public final class Colors {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        type_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         if (colorBuilder_ == null) {
           color_ = null;
         } else {
           colorBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
 
@@ -7560,16 +7373,12 @@ public final class Colors {
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.type_ = type_;
-        if (((from_bitField0_ & 0x00000002) != 0)) {
           if (colorBuilder_ == null) {
             result.color_ = color_;
           } else {
             result.color_ = colorBuilder_.build();
           }
-          to_bitField0_ |= 0x00000002;
+          to_bitField0_ |= 0x00000001;
         }
         result.bitField0_ = to_bitField0_;
         onBuilt();
@@ -7620,9 +7429,6 @@ public final class Colors {
 
       public Builder mergeFrom(com.proto.models.Colors.ColorPaletteRequest other) {
         if (other == com.proto.models.Colors.ColorPaletteRequest.getDefaultInstance()) return this;
-        if (other.hasType()) {
-          setType(other.getType());
-        }
         if (other.hasColor()) {
           mergeColor(other.getColor());
         }
@@ -7633,9 +7439,6 @@ public final class Colors {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasType()) {
-          return false;
-        }
         if (!hasColor()) {
           return false;
         }
@@ -7665,61 +7468,18 @@ public final class Colors {
       }
       private int bitField0_;
 
-      private int type_ = 0;
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return Whether the type field is set.
-       */
-      @java.lang.Override public boolean hasType() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public com.proto.models.Colors.Type getType() {
-        @SuppressWarnings("deprecation")
-        com.proto.models.Colors.Type result = com.proto.models.Colors.Type.valueOf(type_);
-        return result == null ? com.proto.models.Colors.Type.MONOCHROMATIC : result;
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(com.proto.models.Colors.Type value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000001;
-        type_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = 0;
-        onChanged();
-        return this;
-      }
-
       private com.proto.models.Colors.Color color_;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.proto.models.Colors.Color, com.proto.models.Colors.Color.Builder, com.proto.models.Colors.ColorOrBuilder> colorBuilder_;
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        * @return Whether the color field is set.
        */
       public boolean hasColor() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000001) != 0);
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        * @return The color.
        */
       public com.proto.models.Colors.Color getColor() {
@@ -7730,7 +7490,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public Builder setColor(com.proto.models.Colors.Color value) {
         if (colorBuilder_ == null) {
@@ -7742,11 +7502,11 @@ public final class Colors {
         } else {
           colorBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         return this;
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public Builder setColor(
           com.proto.models.Colors.Color.Builder builderForValue) {
@@ -7756,15 +7516,15 @@ public final class Colors {
         } else {
           colorBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         return this;
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public Builder mergeColor(com.proto.models.Colors.Color value) {
         if (colorBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
+          if (((bitField0_ & 0x00000001) != 0) &&
               color_ != null &&
               color_ != com.proto.models.Colors.Color.getDefaultInstance()) {
             color_ =
@@ -7776,11 +7536,11 @@ public final class Colors {
         } else {
           colorBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         return this;
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public Builder clearColor() {
         if (colorBuilder_ == null) {
@@ -7789,19 +7549,19 @@ public final class Colors {
         } else {
           colorBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public com.proto.models.Colors.Color.Builder getColorBuilder() {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000001;
         onChanged();
         return getColorFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       public com.proto.models.Colors.ColorOrBuilder getColorOrBuilder() {
         if (colorBuilder_ != null) {
@@ -7812,7 +7572,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>required .models.Color color = 2;</code>
+       * <code>required .models.Color color = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.proto.models.Colors.Color, com.proto.models.Colors.Color.Builder, com.proto.models.Colors.ColorOrBuilder> 
@@ -7885,36 +7645,25 @@ public final class Colors {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required .models.Type type = 1;</code>
-     * @return Whether the type field is set.
-     */
-    boolean hasType();
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return The type.
-     */
-    com.proto.models.Colors.Type getType();
-
-    /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     java.util.List<com.proto.models.Colors.Color> 
         getPaletteList();
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     com.proto.models.Colors.Color getPalette(int index);
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     int getPaletteCount();
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     java.util.List<? extends com.proto.models.Colors.ColorOrBuilder> 
         getPaletteOrBuilderList();
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     com.proto.models.Colors.ColorOrBuilder getPaletteOrBuilder(
         int index);
@@ -7932,7 +7681,6 @@ public final class Colors {
       super(builder);
     }
     private ColorPaletteResponse() {
-      type_ = 0;
       palette_ = java.util.Collections.emptyList();
     }
 
@@ -7967,22 +7715,10 @@ public final class Colors {
             case 0:
               done = true;
               break;
-            case 8: {
-              int rawValue = input.readEnum();
-                @SuppressWarnings("deprecation")
-              com.proto.models.Colors.Type value = com.proto.models.Colors.Type.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(1, rawValue);
-              } else {
-                bitField0_ |= 0x00000001;
-                type_ = rawValue;
-              }
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) != 0)) {
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) != 0)) {
                 palette_ = new java.util.ArrayList<com.proto.models.Colors.Color>();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               palette_.add(
                   input.readMessage(com.proto.models.Colors.Color.PARSER, extensionRegistry));
@@ -8003,7 +7739,7 @@ public final class Colors {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000002) != 0)) {
+        if (((mutable_bitField0_ & 0x00000001) != 0)) {
           palette_ = java.util.Collections.unmodifiableList(palette_);
         }
         this.unknownFields = unknownFields.build();
@@ -8023,37 +7759,17 @@ public final class Colors {
               com.proto.models.Colors.ColorPaletteResponse.class, com.proto.models.Colors.ColorPaletteResponse.Builder.class);
     }
 
-    private int bitField0_;
-    public static final int TYPE_FIELD_NUMBER = 1;
-    private int type_;
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return Whether the type field is set.
-     */
-    @java.lang.Override public boolean hasType() {
-      return ((bitField0_ & 0x00000001) != 0);
-    }
-    /**
-     * <code>required .models.Type type = 1;</code>
-     * @return The type.
-     */
-    @java.lang.Override public com.proto.models.Colors.Type getType() {
-      @SuppressWarnings("deprecation")
-      com.proto.models.Colors.Type result = com.proto.models.Colors.Type.valueOf(type_);
-      return result == null ? com.proto.models.Colors.Type.MONOCHROMATIC : result;
-    }
-
-    public static final int PALETTE_FIELD_NUMBER = 2;
+    public static final int PALETTE_FIELD_NUMBER = 1;
     private java.util.List<com.proto.models.Colors.Color> palette_;
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     @java.lang.Override
     public java.util.List<com.proto.models.Colors.Color> getPaletteList() {
       return palette_;
     }
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     @java.lang.Override
     public java.util.List<? extends com.proto.models.Colors.ColorOrBuilder> 
@@ -8061,21 +7777,21 @@ public final class Colors {
       return palette_;
     }
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     @java.lang.Override
     public int getPaletteCount() {
       return palette_.size();
     }
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     @java.lang.Override
     public com.proto.models.Colors.Color getPalette(int index) {
       return palette_.get(index);
     }
     /**
-     * <code>repeated .models.Color palette = 2;</code>
+     * <code>repeated .models.Color palette = 1;</code>
      */
     @java.lang.Override
     public com.proto.models.Colors.ColorOrBuilder getPaletteOrBuilder(
@@ -8090,10 +7806,6 @@ public final class Colors {
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasType()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       for (int i = 0; i < getPaletteCount(); i++) {
         if (!getPalette(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -8107,11 +7819,8 @@ public final class Colors {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeEnum(1, type_);
-      }
       for (int i = 0; i < palette_.size(); i++) {
-        output.writeMessage(2, palette_.get(i));
+        output.writeMessage(1, palette_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -8122,13 +7831,9 @@ public final class Colors {
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) != 0)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(1, type_);
-      }
       for (int i = 0; i < palette_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, palette_.get(i));
+          .computeMessageSize(1, palette_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -8145,10 +7850,6 @@ public final class Colors {
       }
       com.proto.models.Colors.ColorPaletteResponse other = (com.proto.models.Colors.ColorPaletteResponse) obj;
 
-      if (hasType() != other.hasType()) return false;
-      if (hasType()) {
-        if (type_ != other.type_) return false;
-      }
       if (!getPaletteList()
           .equals(other.getPaletteList())) return false;
       if (!unknownFields.equals(other.unknownFields)) return false;
@@ -8162,10 +7863,6 @@ public final class Colors {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      if (hasType()) {
-        hash = (37 * hash) + TYPE_FIELD_NUMBER;
-        hash = (53 * hash) + type_;
-      }
       if (getPaletteCount() > 0) {
         hash = (37 * hash) + PALETTE_FIELD_NUMBER;
         hash = (53 * hash) + getPaletteList().hashCode();
@@ -8304,11 +8001,9 @@ public final class Colors {
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        type_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000001);
         if (paletteBuilder_ == null) {
           palette_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           paletteBuilder_.clear();
         }
@@ -8339,21 +8034,15 @@ public final class Colors {
       public com.proto.models.Colors.ColorPaletteResponse buildPartial() {
         com.proto.models.Colors.ColorPaletteResponse result = new com.proto.models.Colors.ColorPaletteResponse(this);
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) != 0)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.type_ = type_;
         if (paletteBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0)) {
+          if (((bitField0_ & 0x00000001) != 0)) {
             palette_ = java.util.Collections.unmodifiableList(palette_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.palette_ = palette_;
         } else {
           result.palette_ = paletteBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -8402,14 +8091,11 @@ public final class Colors {
 
       public Builder mergeFrom(com.proto.models.Colors.ColorPaletteResponse other) {
         if (other == com.proto.models.Colors.ColorPaletteResponse.getDefaultInstance()) return this;
-        if (other.hasType()) {
-          setType(other.getType());
-        }
         if (paletteBuilder_ == null) {
           if (!other.palette_.isEmpty()) {
             if (palette_.isEmpty()) {
               palette_ = other.palette_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensurePaletteIsMutable();
               palette_.addAll(other.palette_);
@@ -8422,7 +8108,7 @@ public final class Colors {
               paletteBuilder_.dispose();
               paletteBuilder_ = null;
               palette_ = other.palette_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
               paletteBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getPaletteFieldBuilder() : null;
@@ -8438,9 +8124,6 @@ public final class Colors {
 
       @java.lang.Override
       public final boolean isInitialized() {
-        if (!hasType()) {
-          return false;
-        }
         for (int i = 0; i < getPaletteCount(); i++) {
           if (!getPalette(i).isInitialized()) {
             return false;
@@ -8469,55 +8152,12 @@ public final class Colors {
       }
       private int bitField0_;
 
-      private int type_ = 0;
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return Whether the type field is set.
-       */
-      @java.lang.Override public boolean hasType() {
-        return ((bitField0_ & 0x00000001) != 0);
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return The type.
-       */
-      @java.lang.Override
-      public com.proto.models.Colors.Type getType() {
-        @SuppressWarnings("deprecation")
-        com.proto.models.Colors.Type result = com.proto.models.Colors.Type.valueOf(type_);
-        return result == null ? com.proto.models.Colors.Type.MONOCHROMATIC : result;
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @param value The type to set.
-       * @return This builder for chaining.
-       */
-      public Builder setType(com.proto.models.Colors.Type value) {
-        if (value == null) {
-          throw new NullPointerException();
-        }
-        bitField0_ |= 0x00000001;
-        type_ = value.getNumber();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required .models.Type type = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearType() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        type_ = 0;
-        onChanged();
-        return this;
-      }
-
       private java.util.List<com.proto.models.Colors.Color> palette_ =
         java.util.Collections.emptyList();
       private void ensurePaletteIsMutable() {
-        if (!((bitField0_ & 0x00000002) != 0)) {
+        if (!((bitField0_ & 0x00000001) != 0)) {
           palette_ = new java.util.ArrayList<com.proto.models.Colors.Color>(palette_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -8525,7 +8165,7 @@ public final class Colors {
           com.proto.models.Colors.Color, com.proto.models.Colors.Color.Builder, com.proto.models.Colors.ColorOrBuilder> paletteBuilder_;
 
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public java.util.List<com.proto.models.Colors.Color> getPaletteList() {
         if (paletteBuilder_ == null) {
@@ -8535,7 +8175,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public int getPaletteCount() {
         if (paletteBuilder_ == null) {
@@ -8545,7 +8185,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public com.proto.models.Colors.Color getPalette(int index) {
         if (paletteBuilder_ == null) {
@@ -8555,7 +8195,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder setPalette(
           int index, com.proto.models.Colors.Color value) {
@@ -8572,7 +8212,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder setPalette(
           int index, com.proto.models.Colors.Color.Builder builderForValue) {
@@ -8586,7 +8226,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder addPalette(com.proto.models.Colors.Color value) {
         if (paletteBuilder_ == null) {
@@ -8602,7 +8242,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder addPalette(
           int index, com.proto.models.Colors.Color value) {
@@ -8619,7 +8259,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder addPalette(
           com.proto.models.Colors.Color.Builder builderForValue) {
@@ -8633,7 +8273,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder addPalette(
           int index, com.proto.models.Colors.Color.Builder builderForValue) {
@@ -8647,7 +8287,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder addAllPalette(
           java.lang.Iterable<? extends com.proto.models.Colors.Color> values) {
@@ -8662,12 +8302,12 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder clearPalette() {
         if (paletteBuilder_ == null) {
           palette_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           paletteBuilder_.clear();
@@ -8675,7 +8315,7 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public Builder removePalette(int index) {
         if (paletteBuilder_ == null) {
@@ -8688,14 +8328,14 @@ public final class Colors {
         return this;
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public com.proto.models.Colors.Color.Builder getPaletteBuilder(
           int index) {
         return getPaletteFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public com.proto.models.Colors.ColorOrBuilder getPaletteOrBuilder(
           int index) {
@@ -8705,7 +8345,7 @@ public final class Colors {
         }
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public java.util.List<? extends com.proto.models.Colors.ColorOrBuilder> 
            getPaletteOrBuilderList() {
@@ -8716,14 +8356,14 @@ public final class Colors {
         }
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public com.proto.models.Colors.Color.Builder addPaletteBuilder() {
         return getPaletteFieldBuilder().addBuilder(
             com.proto.models.Colors.Color.getDefaultInstance());
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public com.proto.models.Colors.Color.Builder addPaletteBuilder(
           int index) {
@@ -8731,7 +8371,7 @@ public final class Colors {
             index, com.proto.models.Colors.Color.getDefaultInstance());
       }
       /**
-       * <code>repeated .models.Color palette = 2;</code>
+       * <code>repeated .models.Color palette = 1;</code>
        */
       public java.util.List<com.proto.models.Colors.Color.Builder> 
            getPaletteBuilderList() {
@@ -8744,7 +8384,7 @@ public final class Colors {
           paletteBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.proto.models.Colors.Color, com.proto.models.Colors.Color.Builder, com.proto.models.Colors.ColorOrBuilder>(
                   palette_,
-                  ((bitField0_ & 0x00000002) != 0),
+                  ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
                   isClean());
           palette_ = null;
@@ -8879,15 +8519,12 @@ public final class Colors {
       "\034\n\005color\030\002 \002(\0132\r.models.Color\"]\n\027ColorCo" +
       "nversionResponse\022$\n\tcolorMode\030\001 \002(\0162\021.mo" +
       "dels.ColorMode\022\034\n\005color\030\002 \002(\0132\r.models.C" +
-      "olor\"O\n\023ColorPaletteRequest\022\032\n\004type\030\001 \002(" +
-      "\0162\014.models.Type\022\034\n\005color\030\002 \002(\0132\r.models." +
-      "Color\"R\n\024ColorPaletteResponse\022\032\n\004type\030\001 " +
-      "\002(\0162\014.models.Type\022\036\n\007palette\030\002 \003(\0132\r.mod" +
-      "els.Color*D\n\tColorMode\022\014\n\010HEX_MODE\020\000\022\014\n\010" +
-      "RGB_MODE\020\001\022\r\n\tCMYK_MODE\020\002\022\014\n\010HSV_MODE\020\003*" +
-      "V\n\004Type\022\021\n\rMONOCHROMATIC\020\000\022\021\n\rCOMPLEMENT" +
-      "ARY\020\001\022\r\n\tANALOGOUS\020\002\022\013\n\007TRIADIC\020\003\022\014\n\010TET" +
-      "RADIC\020\004B\032\n\020com.proto.modelsB\006Colors"
+      "olor\"3\n\023ColorPaletteRequest\022\034\n\005color\030\001 \002" +
+      "(\0132\r.models.Color\"6\n\024ColorPaletteRespons" +
+      "e\022\036\n\007palette\030\001 \003(\0132\r.models.Color*D\n\tCol" +
+      "orMode\022\014\n\010HEX_MODE\020\000\022\014\n\010RGB_MODE\020\001\022\r\n\tCM" +
+      "YK_MODE\020\002\022\014\n\010HSV_MODE\020\003B\032\n\020com.proto.mod" +
+      "elsB\006Colors"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8946,13 +8583,13 @@ public final class Colors {
     internal_static_models_ColorPaletteRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_models_ColorPaletteRequest_descriptor,
-        new java.lang.String[] { "Type", "Color", });
+        new java.lang.String[] { "Color", });
     internal_static_models_ColorPaletteResponse_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_models_ColorPaletteResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_models_ColorPaletteResponse_descriptor,
-        new java.lang.String[] { "Type", "Palette", });
+        new java.lang.String[] { "Palette", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

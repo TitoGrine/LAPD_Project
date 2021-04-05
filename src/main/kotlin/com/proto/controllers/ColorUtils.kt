@@ -196,3 +196,21 @@ fun HSV_2_CMYK(hsv: Colors.HSV): Colors.CMYK {
 fun HSV_2_HSV(hsv: Colors.HSV): Colors.HSV {
     return hsv
 }
+
+fun generatePalette(color: Colors.HSV): List<Colors.HSV> {
+    var hue = color.hue
+    val saturation = color.saturation
+    val value = color.value
+
+    val delta = (10..50).random()
+    val palette = ArrayList<Colors.HSV>(6)
+    palette.add(color)
+
+    for(i in 1..5){
+        hue += delta
+
+        palette.add(buildHSV(hue, saturation, value))
+    }
+
+    return palette
+}
