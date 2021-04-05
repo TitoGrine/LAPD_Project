@@ -6,6 +6,32 @@ import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
+fun isWebSafe(color: Colors.HEX): Boolean {
+    val webSafeCodes = arrayOf("00", "33", "66", "99", "CC", "FF")
+    val rawCode = color.code.filterNot { c -> c == '#' }
+
+    val byte1 = rawCode.substring(0, 2)
+    val byte2 = rawCode.substring(2, 4)
+    val byte3 = rawCode.substring(4, 6)
+
+    if (webSafeCodes.contains(byte1) and webSafeCodes.contains(byte2) and webSafeCodes.contains(byte3))
+        return true
+
+    return false
+}
+
+fun isWebSafe(color: Colors.RGB): Boolean {
+    return isWebSafe(RGB_2_HEX(color))
+}
+
+fun isWebSafe(color: Colors.CMYK): Boolean {
+    return isWebSafe(CMYK_2_HEX(color))
+}
+
+fun isWebSafe(color: Colors.HSV): Boolean {
+    return isWebSafe(HSV_2_HEX(color))
+}
+
 fun HEX_2_HEX(hex: Colors.HEX): Colors.HEX {
     return hex
 }
@@ -13,7 +39,7 @@ fun HEX_2_HEX(hex: Colors.HEX): Colors.HEX {
 fun HEX_2_RGB(hex: Colors.HEX): Colors.RGB {
     val rawCode = hex.code.filterNot { c -> c == '#' }
 
-    if(rawCode.length != 6)
+    if (rawCode.length != 6)
         return buildRGB(-1, -1, -1)
 
     val red = rawCode.subSequence(0, 2).toString().toInt(16)
@@ -140,7 +166,7 @@ fun HSV_2_RGB(hsv: Colors.HSV): Colors.RGB {
     val saturation: Float = hsv.saturation
     val value: Float = hsv.value
 
-    if(0.0.compareTo(saturation) == 0)
+    if (0.0.compareTo(saturation) == 0)
         return buildRGB((value * 255f).roundToInt(), (value * 255f).roundToInt(), (value * 255f).roundToInt())
 
     val varH = hue * 6f
@@ -153,7 +179,7 @@ fun HSV_2_RGB(hsv: Colors.HSV): Colors.RGB {
     var green: Float
     var blue: Float
 
-    when(varI){
+    when (varI) {
         0 -> {
             red = value * 255f
             green = var3 * 255f
@@ -206,7 +232,7 @@ fun generatePalette(color: Colors.HSV): List<Colors.HSV> {
     val palette = ArrayList<Colors.HSV>(6)
     palette.add(color)
 
-    for(i in 1..5){
+    for (i in 1..5) {
         hue += delta
 
         palette.add(buildHSV(hue, saturation, value))

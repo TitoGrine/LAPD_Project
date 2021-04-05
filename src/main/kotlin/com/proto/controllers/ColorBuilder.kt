@@ -4,7 +4,7 @@ import com.proto.models.Colors
 
 fun buildHEXColor(hexDef: Colors.HEX): Colors.Color {
     //TODO: Automatically check if websafe and get name
-    var webSafe = false
+    var webSafe = isWebSafe(hexDef)
     var name = ""
 
     return Colors.Color
@@ -27,14 +27,14 @@ fun buildHEXColor(code: String): Colors.Color {
 
 fun buildHEX(code: String): Colors.HEX {
     return Colors.HEX
-            .newBuilder()
-            .setCode(code)
-            .build()
+        .newBuilder()
+        .setCode(code)
+        .build()
 }
 
 fun buildRGBColor(rgbDef: Colors.RGB): Colors.Color {
     //TODO: Automatically check if websafe and get name
-    var webSafe = false
+    var webSafe = isWebSafe(rgbDef)
     var name = ""
 
     return Colors.Color
@@ -57,16 +57,16 @@ fun buildRGBColor(red: Int, green: Int, blue: Int): Colors.Color {
 
 fun buildRGB(red: Int, green: Int, blue: Int): Colors.RGB {
     return Colors.RGB
-            .newBuilder()
-            .setRed(red)
-            .setGreen(green)
-            .setBlue(blue)
-            .build()
+        .newBuilder()
+        .setRed(red)
+        .setGreen(green)
+        .setBlue(blue)
+        .build()
 }
 
 fun buildCMYKColor(cmykDef: Colors.CMYK): Colors.Color {
     //TODO: Automatically check if websafe and get name
-    var webSafe = false
+    var webSafe = isWebSafe(cmykDef)
     var name = ""
 
     return Colors.Color
@@ -89,17 +89,17 @@ fun buildCMYKColor(cyan: Float, magenta: Float, yellow: Float, key: Float): Colo
 
 fun buildCMYK(cyan: Float, magenta: Float, yellow: Float, key: Float): Colors.CMYK {
     return Colors.CMYK
-            .newBuilder()
-            .setCyan(cyan)
-            .setMagenta(magenta)
-            .setYellow(yellow)
-            .setKey(key)
-            .build()
+        .newBuilder()
+        .setCyan(cyan)
+        .setMagenta(magenta)
+        .setYellow(yellow)
+        .setKey(key)
+        .build()
 }
 
 fun buildHSVColor(hsvDef: Colors.HSV): Colors.Color {
     //TODO: Automatically check if websafe and get name
-    var webSafe = false
+    var webSafe = isWebSafe(hsvDef)
     var name = ""
 
     return Colors.Color
@@ -122,9 +122,9 @@ fun buildHSVColor(hue: Int, saturation: Float, value: Float): Colors.Color {
 
 fun buildHSV(hue: Int, saturation: Float, value: Float): Colors.HSV {
     return Colors.HSV
-            .newBuilder()
-            .setHue(hue)
-            .setSaturation(saturation)
-            .setValue(value)
-            .build()
+        .newBuilder()
+        .setHue(hue)
+        .setSaturation(saturation)
+        .setValue(value)
+        .build()
 }

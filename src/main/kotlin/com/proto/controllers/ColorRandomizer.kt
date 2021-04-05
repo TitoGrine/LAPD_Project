@@ -6,7 +6,7 @@ import kotlin.random.Random
 fun getRandomHexColor(): Colors.HEX {
     val hexCode = CharArray(6)
 
-    for (i in hexCode.indices){
+    for (i in hexCode.indices) {
         val randCode = (48..63).random()
         hexCode[i] = (if (randCode > 57) randCode + 7 else randCode).toChar()
         print(hexCode[i])

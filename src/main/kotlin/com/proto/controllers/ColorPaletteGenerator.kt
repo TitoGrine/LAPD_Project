@@ -22,29 +22,29 @@ fun generatePalette(request: Colors.ColorPaletteRequest): Colors.ColorPaletteRes
         .build()
 }
 
-fun generateHexPalette(color: Colors.HEX): List<Colors.Color>{
+fun generateHexPalette(color: Colors.HEX): List<Colors.Color> {
     val hsvColor = HEX_2_HSV(color)
     val hsvPalette = generatePalette(hsvColor)
 
-    return hsvPalette.map { c -> buildHEXColor(HSV_2_HEX(c))}
+    return hsvPalette.map { c -> buildHEXColor(HSV_2_HEX(c)) }
 }
 
-fun generateRGBPalette(color: Colors.RGB): List<Colors.Color>{
+fun generateRGBPalette(color: Colors.RGB): List<Colors.Color> {
     val hsvColor = RGB_2_HSV(color)
     val hsvPalette = generatePalette(hsvColor)
 
-    return hsvPalette.map { c -> buildRGBColor(HSV_2_RGB(c))}
+    return hsvPalette.map { c -> buildRGBColor(HSV_2_RGB(c)) }
 }
 
-fun generateCMYKPalette(color: Colors.CMYK): List<Colors.Color>{
+fun generateCMYKPalette(color: Colors.CMYK): List<Colors.Color> {
     val hsvColor = CMYK_2_HSV(color)
     val hsvPalette = generatePalette(hsvColor)
 
-    return hsvPalette.map { c -> buildCMYKColor(HSV_2_CMYK(c))}
+    return hsvPalette.map { c -> buildCMYKColor(HSV_2_CMYK(c)) }
 }
 
-fun generateHSVPalette(color: Colors.HSV): List<Colors.Color>{
+fun generateHSVPalette(color: Colors.HSV): List<Colors.Color> {
     val hsvPalette = generatePalette(color)
 
-    return hsvPalette.map { c -> buildHSVColor(c)}
+    return hsvPalette.map { c -> buildHSVColor(c) }
 }

@@ -20,7 +20,7 @@ object ColorsSerializer : ContentConverter {
         val javaType = type.jvmErasure
 
         return withContext(Dispatchers.IO) {
-            when (javaType){
+            when (javaType) {
                 Colors.Color::class -> Colors.Color.parseFrom(channel.toInputStream())
                 Colors.ColorConversionRequest::class -> Colors.ColorConversionRequest.parseFrom(channel.toInputStream())
                 Colors.ColorConversionResponse::class -> Colors.ColorConversionResponse.parseFrom(channel.toInputStream())
@@ -36,10 +36,10 @@ object ColorsSerializer : ContentConverter {
         contentType: ContentType,
         value: Any
     ): Any? {
-        if(!contentType.match(ContentType.Application.ProtoBuf))
+        if (!contentType.match(ContentType.Application.ProtoBuf))
             return null
 
-        return when(value) {
+        return when (value) {
             is Colors.Color -> (value as? Colors.Color)?.toByteArray()
             is Colors.ColorConversionRequest -> (value as? Colors.ColorConversionRequest)?.toByteArray()
             is Colors.ColorConversionResponse -> (value as? Colors.ColorConversionResponse)?.toByteArray()

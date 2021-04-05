@@ -19,28 +19,28 @@ fun Route.hexRouting() {
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
 
-            if(!conversionRequest.color.colorDef.hasHexMode())
+            if (!conversionRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)
 
             val conversionResponse = convertColor(conversionRequest)
 
-            if(conversionResponse == null)
+            if (conversionResponse == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
-            else{
+            else {
                 call.respond(conversionResponse)
             }
         }
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
 
-            if(!paletteRequest.color.colorDef.hasHexMode())
+            if (!paletteRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)
 
             val paletteResponse = generatePalette(paletteRequest)
 
-            if(paletteResponse == null)
+            if (paletteResponse == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
-            else{
+            else {
                 call.respond(paletteResponse)
             }
         }
