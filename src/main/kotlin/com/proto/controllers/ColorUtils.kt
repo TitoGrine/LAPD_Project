@@ -14,10 +14,7 @@ fun isWebSafe(color: Colors.HEX): Boolean {
     val byte2 = rawCode.substring(2, 4)
     val byte3 = rawCode.substring(4, 6)
 
-    if (webSafeCodes.contains(byte1) and webSafeCodes.contains(byte2) and webSafeCodes.contains(byte3))
-        return true
-
-    return false
+    return webSafeCodes.contains(byte1) and webSafeCodes.contains(byte2) and webSafeCodes.contains(byte3)
 }
 
 fun isWebSafe(color: Colors.RGB): Boolean {
@@ -58,14 +55,11 @@ fun HEX_2_HSV(hex: Colors.HEX): Colors.HSV {
 }
 
 fun RGB_2_HEX(rgb: Colors.RGB): Colors.HEX {
-    val red = rgb.red.toString(16)
-    val green = rgb.green.toString(16)
-    val blue = rgb.blue.toString(16)
+    val red = String.format("%02X", rgb.red)
+    val green = String.format("%02X", rgb.green)
+    val blue = String.format("%02X", rgb.blue)
 
-    val code =
-        """#${if (red.length > 1) red else red + red}${if (green.length > 1) green else green + green}${if (blue.length > 1) blue else blue + blue}"""
-
-    return buildHEX(code.toUpperCase())
+    return buildHEX("#$red$green$blue")
 }
 
 fun RGB_2_RGB(rgb: Colors.RGB): Colors.RGB {
