@@ -1,9 +1,11 @@
 package org.jetbrains.middleware.builder
 
 import io.ktor.application.*
+import io.ktor.features.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.jetbrains.middleware.builder.strategies.APITypeStrategy
@@ -49,11 +51,14 @@ class MiddlewareServer<T> private constructor(
 
     fun start(): NettyApplicationEngine {
         return embeddedServer(Netty, port = portToServe) {
+            install(ContentNegotiation) {
+                json()
+            }
             routing {
                 requests.forEach { (url, requestData) ->
                     post(url) {
-                        //val parameters = call.receive<String>();
-                        val response = strategy.sendRequest(serverUrl.toString()+url, requestData, "")
+                        val parameters = call.receive<String>();
+                        val response = strategy.sendRequest("$serverUrl/$url", requestData, parameters)
                         context.respondText(response)
                     }
                 }

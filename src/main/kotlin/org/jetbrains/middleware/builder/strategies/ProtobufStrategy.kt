@@ -9,18 +9,28 @@ import com.google.protobuf.util.JsonFormat
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.request.*
+import io.ktor.client.statement.*
+import io.ktor.content.*
+import io.ktor.http.*
 import org.jetbrains.middleware.builder.RequestResponse
 
 class ProtobufStrategy: APITypeStrategy<Message>() {
     override suspend fun sendRequest(url: String, requestData: RequestData<Message>, parameters: String): String {
-        //requestData.params.encode(parameters)
+        val data = requestData.params.encode(parameters)
         val client = HttpClient(CIO);
-        val response : HttpResponse = client.get(url+"/1")
-        print(requestData.response.decode(response))
-        if (response.status == HttpStatusCode.OK) {
-            return JsonFormat.printer().print(requestData.response.decode(response.readText()));
+
+        val response : HttpResponse = client.post{
+            url(url)
+            body = ByteArrayContent(data.toByteArray(), ContentType.Application.ProtoBuf)
+        }
+
+        print(response.status)
+        return if (response.status == HttpStatusCode.OK) {
+            val responseText = response.readBytes()
+            val decodedData = requestData.response.decode(responseText)
+            JsonFormat.printer().print(decodedData);
         } else {
-            return response.readText()
+            response.readText()
         }
     }
 
@@ -33,6 +43,6 @@ class ProtobufStrategy: APITypeStrategy<Message>() {
     }
 
     data class ProtobufResponse(val data: Descriptors.Descriptor): RequestResponse<Message> {
-        override fun decode(body: String): Message = DynamicMessage.parseFrom(data, body.toByteArray())
+        override fun decode(body: ByteArray): Message = DynamicMessage.parseFrom(data, body)
     }
 }

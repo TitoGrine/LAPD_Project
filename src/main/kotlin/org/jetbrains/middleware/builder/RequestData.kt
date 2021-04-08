@@ -16,5 +16,5 @@ interface RequestParams<T>{
 }
 
 interface RequestResponse<T>{
-    fun decode(body: String) : T
+    fun decode(body: ByteArray) : T
 }
