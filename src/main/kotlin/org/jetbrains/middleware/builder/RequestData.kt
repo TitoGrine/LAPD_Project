@@ -1,10 +1,10 @@
 package org.jetbrains.middleware.builder
 
 /** To then decode the values using Jackson
-    val mapper = jacksonObjectMapper()
-    val typeFactory = mapper.typeFactory
-    val mapType = typeFactory.constructMapType(HashMap::class.java, String::class.java, Any::class.java)
-**/
+val mapper = jacksonObjectMapper()
+val typeFactory = mapper.typeFactory
+val mapType = typeFactory.constructMapType(HashMap::class.java, String::class.java, Any::class.java)
+ **/
 
 
 data class RequestDetails<T>(val url: String, val requestData: RequestData<T>)

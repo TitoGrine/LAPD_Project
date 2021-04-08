@@ -1,29 +1,32 @@
 package com.proto
 
-import com.proto.routes.registerMessageRoutes
-import io.ktor.application.Application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.ContentNegotiation
-import io.ktor.http.ContentType
-import io.ktor.response.respondText
-import io.ktor.routing.get
-import io.ktor.routing.routing
-import io.ktor.serialization.serialization
-import kotlinx.serialization.protobuf.ProtoBuf
+import com.proto.routes.registerCMYKRoutes
+import com.proto.routes.registerHSVRoutes
+import com.proto.routes.registerHexRoutes
+import com.proto.routes.registerRGBRoutes
+import com.proto.serializers.ColorsSerializer
+import io.ktor.application.*
+import io.ktor.features.*
+import io.ktor.http.*
+import io.ktor.response.*
+import io.ktor.routing.*
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @kotlinx.serialization.ExperimentalSerializationApi
 fun Application.module(testing: Boolean = false) {
     install(ContentNegotiation) {
-        serialization(ContentType.Application.ProtoBuf, ProtoBuf.Default)
+        register(ContentType.Application.ProtoBuf, ColorsSerializer)
     }
+
     routing {
         get("/") {
             call.respondText("Hello, world!")
         }
     }
 
-    registerMessageRoutes()
+    registerRGBRoutes()
+    registerCMYKRoutes()
+    registerHSVRoutes()
+    registerHexRoutes()
 }

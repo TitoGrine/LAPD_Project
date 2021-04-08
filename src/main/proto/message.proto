@@ -1,6 +1,6 @@
 message Message {
-	required string id = 1;
-	required string sender = 2;
-	required string receiver = 3;
-	optional string content = 4;
+  required string id = 1;
+  required string sender = 2;
+  required string receiver = 3;
+  optional string content = 4;
 }
