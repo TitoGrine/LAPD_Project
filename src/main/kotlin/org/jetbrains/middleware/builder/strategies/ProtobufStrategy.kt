@@ -15,9 +15,13 @@ class ProtobufStrategy: APITypeStrategy<Message>() {
     override suspend fun sendRequest(url: String, requestData: RequestData<Message>, parameters: String): String {
         //requestData.params.encode(parameters)
         val client = HttpClient(CIO);
-        val response = client.get<String>(url+"/1")
+        val response : HttpResponse = client.get(url+"/1")
         print(requestData.response.decode(response))
-        return requestData.response.decode(response).toString();
+        if (response.status == HttpStatusCode.OK) {
+            return JsonFormat.printer().print(requestData.response.decode(response.readText()));
+        } else {
+            return response.readText()
+        }
     }
 
     data class ProtobufParams(val data: Message.Builder): RequestParams<Message> {
