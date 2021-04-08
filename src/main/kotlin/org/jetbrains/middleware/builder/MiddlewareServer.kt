@@ -1,7 +1,9 @@
 package org.jetbrains.middleware.builder
 
+import arrow.core.Either
 import io.ktor.application.*
 import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -58,8 +60,10 @@ class MiddlewareServer<T> private constructor(
                 requests.forEach { (url, requestData) ->
                     post(url) {
                         val parameters = call.receive<String>();
-                        val response = strategy.sendRequest("$serverUrl/$url", requestData, parameters)
-                        context.respondText(response)
+                        when(val response = strategy.sendRequest("$serverUrl/$url", requestData, parameters)) {
+                            is Either.Left -> context.respondText(response.value)
+                            is Either.Right -> context.respondText(response.value, contentType=ContentType.Application.Json)
+                        }
                     }
                 }
             }

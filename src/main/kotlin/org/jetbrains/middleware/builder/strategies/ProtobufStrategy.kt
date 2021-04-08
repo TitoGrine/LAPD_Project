@@ -1,5 +1,6 @@
 package org.jetbrains.middleware.builder.strategies
 
+import arrow.core.Either
 import com.google.protobuf.Descriptors
 import com.google.protobuf.DynamicMessage
 import org.jetbrains.middleware.builder.RequestData
@@ -14,8 +15,8 @@ import io.ktor.content.*
 import io.ktor.http.*
 import org.jetbrains.middleware.builder.RequestResponse
 
-class ProtobufStrategy: APITypeStrategy<Message>() {
-    override suspend fun sendRequest(url: String, requestData: RequestData<Message>, parameters: String): String {
+class ProtobufStrategy: APITypeStrategy<Message> {
+    override suspend fun sendRequest(url: String, requestData: RequestData<Message>, parameters: String): Either<String, String> {
         val data = requestData.params.encode(parameters)
         val client = HttpClient(CIO);
 
@@ -24,13 +25,12 @@ class ProtobufStrategy: APITypeStrategy<Message>() {
             body = ByteArrayContent(data.toByteArray(), ContentType.Application.ProtoBuf)
         }
 
-        print(response.status)
         return if (response.status == HttpStatusCode.OK) {
             val responseText = response.readBytes()
             val decodedData = requestData.response.decode(responseText)
-            JsonFormat.printer().print(decodedData);
+            Either.Right(JsonFormat.printer().print(decodedData))
         } else {
-            response.readText()
+            Either.Left(response.readText())
         }
     }
 

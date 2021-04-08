@@ -1,7 +1,8 @@
 package org.jetbrains.middleware.builder.strategies
 
+import arrow.core.Either
 import org.jetbrains.middleware.builder.RequestData
 
-abstract class APITypeStrategy<T> {
-    abstract suspend fun sendRequest(url: String, requestData: RequestData<T>, parameters: String): String
+interface APITypeStrategy<T> {
+    suspend fun sendRequest(url: String, requestData: RequestData<T>, parameters: String): Either<String, String>
 }
