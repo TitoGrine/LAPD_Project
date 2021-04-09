@@ -23,15 +23,17 @@ fun Route.rgbRouting() {
             if (!conversionRequest.color.colorDef.hasRgbMode())
                 call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)
 
-            val conversionResponse = GenericConversionResponse_2_ConversionResponse(
-                convertColor(
-                    ConversionRequest_2_GenericConversionRequest(conversionRequest)
-                )
-            )
+            val genericConversionRequest = ConversionRequest_2_GenericConversionRequest(conversionRequest)
 
-            if (conversionResponse == null)
+            if (genericConversionRequest == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
             else {
+                val conversionResponse = GenericConversionResponse_2_ConversionResponse(
+                    convertColor(
+                        genericConversionRequest
+                    )
+                ) ?: call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
+
                 call.respond(conversionResponse)
             }
         }
@@ -41,15 +43,17 @@ fun Route.rgbRouting() {
             if (!paletteRequest.color.colorDef.hasRgbMode())
                 call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)
 
-            val paletteResponse = GenericPaletteResponse_2_PaletteResponse(
-                generatePalette(
-                    PaletteRequest_2_GenericPaletteRequest(paletteRequest)
-                )
-            )
+            val genericPaletteRequest = PaletteRequest_2_GenericPaletteRequest(paletteRequest)
 
-            if (paletteResponse == null)
+            if (genericPaletteRequest == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
             else {
+                val paletteResponse = GenericPaletteResponse_2_PaletteResponse(
+                    generatePalette(
+                        genericPaletteRequest
+                    )
+                ) ?: call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
+
                 call.respond(paletteResponse)
             }
         }

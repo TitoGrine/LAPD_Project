@@ -87,6 +87,6 @@ class GenericColors {
     )
 
     data class ColorPaletteResponse(
-        val color: List<Color>
+        val palette: List<Color>
     )
 }
