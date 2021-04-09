@@ -1,9 +1,10 @@
 package com.proto.routes
 
-import com.proto.controllers.buildHSVColor
-import com.proto.controllers.convertColor
-import com.proto.controllers.generatePalette
-import com.proto.controllers.getRandomHSVColor
+import com.generic.controllers.buildHSVColor
+import com.generic.controllers.convertColor
+import com.generic.controllers.generatePalette
+import com.generic.controllers.getRandomHSVColor
+import com.proto.converters.*
 import com.proto.models.Colors
 import io.ktor.application.*
 import io.ktor.http.*
@@ -14,7 +15,7 @@ import io.ktor.routing.*
 fun Route.hsvRouting() {
     route("/hsv") {
         get("/random") {
-            call.respond(buildHSVColor(getRandomHSVColor()))
+            call.respond(GenericColor_2_Color(buildHSVColor(getRandomHSVColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
@@ -22,7 +23,11 @@ fun Route.hsvRouting() {
             if (!conversionRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
 
-            val conversionResponse = convertColor(conversionRequest)
+            val conversionResponse = GenericConversionResponse_2_ConversionResponse(
+                convertColor(
+                    ConversionRequest_2_GenericConversionRequest(conversionRequest)
+                )
+            )
 
             if (conversionResponse == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
@@ -36,7 +41,11 @@ fun Route.hsvRouting() {
             if (!paletteRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
 
-            val paletteResponse = generatePalette(paletteRequest)
+            val paletteResponse = GenericPaletteResponse_2_PaletteResponse(
+                generatePalette(
+                    PaletteRequest_2_GenericPaletteRequest(paletteRequest)
+                )
+            )
 
             if (paletteResponse == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
