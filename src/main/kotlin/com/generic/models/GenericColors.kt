@@ -35,10 +35,10 @@ class GenericColors {
                 this.hsvMode = hsvMode
             }
 
-            fun hasHexMode(): Boolean = hexMode == null
-            fun hasRgbMode(): Boolean = rgbMode == null
-            fun hasCmykMode(): Boolean = cmykMode == null
-            fun hasHsvMode(): Boolean = hsvMode == null
+            fun hasHexMode(): Boolean = hexMode != null
+            fun hasRgbMode(): Boolean = rgbMode != null
+            fun hasCmykMode(): Boolean = cmykMode != null
+            fun hasHsvMode(): Boolean = hsvMode != null
         }
     }
 

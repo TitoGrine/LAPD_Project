@@ -244,7 +244,7 @@ fun generatePalette(color: GenericColors.HSV?): List<GenericColors.HSV> {
     palette.add(color)
 
     for (i in 1..5) {
-        hue += delta
+        hue = (hue + delta) % 361
 
         palette.add(buildHSV(hue, saturation, value))
     }
