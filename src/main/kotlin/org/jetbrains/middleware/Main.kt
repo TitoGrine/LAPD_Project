@@ -3,6 +3,7 @@ package org.jetbrains.middleware
 import com.google.protobuf.*
 import com.proto.models.Colors
 import org.jetbrains.middleware.builder.*
+import org.jetbrains.middleware.builder.server.MiddlewareServer
 import org.jetbrains.middleware.builder.strategies.ProtobufStrategy
 
 // Example to play around with

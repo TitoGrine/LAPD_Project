@@ -16,12 +16,12 @@ import io.ktor.http.*
 import org.jetbrains.middleware.builder.RequestResponse
 
 class ProtobufStrategy: APITypeStrategy<Message> {
-    override suspend fun sendRequest(url: String, requestData: RequestData<Message>, parameters: String): Either<String, String> {
+    override suspend fun sendRequest(host: String, url: String, requestData: RequestData<Message>, parameters: String): Either<String, String> {
         val data = requestData.params.encode(parameters)
         val client = HttpClient(CIO);
 
         val response : HttpResponse = client.post{
-            url(url)
+            url("$host/$url")
             body = ByteArrayContent(data.toByteArray(), ContentType.Application.ProtoBuf)
         }
 

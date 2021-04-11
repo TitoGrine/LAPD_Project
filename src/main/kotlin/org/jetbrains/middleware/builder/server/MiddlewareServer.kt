@@ -1,4 +1,4 @@
-package org.jetbrains.middleware.builder
+package org.jetbrains.middleware.builder.server
 
 import arrow.core.Either
 import io.ktor.application.*
@@ -10,6 +10,9 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import org.jetbrains.middleware.builder.RequestData
+import org.jetbrains.middleware.builder.RequestDetails
+import org.jetbrains.middleware.builder.server.requests.RequestBuilder
 import org.jetbrains.middleware.builder.strategies.APITypeStrategy
 import java.net.URI
 
@@ -25,7 +28,8 @@ class MiddlewareServer<T> private constructor(
         var serverUrl: URI? = null,
         var wait: Boolean = true,
         val requests: MutableMap<String, RequestData<T>> = mutableMapOf(),
-        var strategy: APITypeStrategy<T>? = null
+        var strategy: APITypeStrategy<T>? = null,
+        var requestBuilder: RequestBuilder<T>? = null
     ) {
         fun portToServe(portToServe: Int): Builder<T> = apply { this.portToServe = portToServe }
         fun serverUrl(serverUrl: String): Builder<T> = apply { this.serverUrl = URI.create(serverUrl) }
@@ -36,9 +40,13 @@ class MiddlewareServer<T> private constructor(
         fun addRequests(requestsDetails: List<RequestDetails<T>>): Builder<T> =
             apply { requestsDetails.forEach { requestDetails -> this.addRequest(requestDetails) } }
 
+        fun addRequestBuilder(requestBuilder: RequestBuilder<T>) =
+            apply { this.requestBuilder = requestBuilder }
+
         fun wait(wait: Boolean): Builder<T> = apply { this.wait = wait }
-        fun build(): MiddlewareServer<T> =
-            if(serverUrl != null && strategy != null) {
+        fun build(): MiddlewareServer<T> {
+            requestBuilder?.addRequests(this)
+            return if (serverUrl != null && strategy != null) {
                 MiddlewareServer(
                     portToServe,
                     serverUrl!!,
@@ -49,7 +57,9 @@ class MiddlewareServer<T> private constructor(
             } else {
                 throw Exception("No server url provided")
             }
+        }
     }
+
 
     fun start(): NettyApplicationEngine {
         return embeddedServer(Netty, port = portToServe) {
@@ -59,10 +69,13 @@ class MiddlewareServer<T> private constructor(
             routing {
                 requests.forEach { (url, requestData) ->
                     post(url) {
-                        val parameters = call.receive<String>();
-                        when(val response = strategy.sendRequest("$serverUrl/$url", requestData, parameters)) {
+                        val parameters = call.receive<String>()
+                        when (val response = strategy.sendRequest(serverUrl.toString(), url, requestData, parameters)) {
                             is Either.Left -> context.respondText(response.value)
-                            is Either.Right -> context.respondText(response.value, contentType=ContentType.Application.Json)
+                            is Either.Right -> context.respondText(
+                                response.value,
+                                contentType = ContentType.Application.Json
+                            )
                         }
                     }
                 }
