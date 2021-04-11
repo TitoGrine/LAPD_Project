@@ -15,26 +15,27 @@ import io.ktor.content.*
 import io.ktor.http.*
 import org.jetbrains.middleware.builder.RequestResponse
 
-class ProtobufStrategy: APITypeStrategy<Message> {
-    override suspend fun sendRequest(host: String, url: String, requestData: RequestData<Message>, parameters: String): Either<String, String> {
-        val data = requestData.params.encode(parameters)
-        val client = HttpClient(CIO);
 
-        val response : HttpResponse = client.post{
+class ProtobufStrategy : APITypeStrategy<Message, HttpResponse> {
+    val client = HttpClient(CIO)
+
+    override suspend fun sendRequest(
+        host: String,
+        url: String,
+        requestData: RequestData<Message, HttpResponse>,
+        parameters: String
+    ): Either<String, String> {
+        val data = requestData.params.encode(parameters)
+
+        val response: HttpResponse = client.post {
             url("$host/$url")
             body = ByteArrayContent(data.toByteArray(), ContentType.Application.ProtoBuf)
         }
 
-        return if (response.status == HttpStatusCode.OK) {
-            val responseText = response.readBytes()
-            val decodedData = requestData.response.decode(responseText)
-            Either.Right(JsonFormat.printer().print(decodedData))
-        } else {
-            Either.Left(response.readText())
-        }
+        return requestData.response.decode(response)
     }
 
-    data class ProtobufParams(val data: Message.Builder): RequestParams<Message> {
+    data class ProtobufParams(val data: Message.Builder) : RequestParams<Message> {
         override fun encode(body: String): Message {
             val builder = data.clone()
             JsonFormat.parser().ignoringUnknownFields().merge(body, builder)
@@ -42,7 +43,14 @@ class ProtobufStrategy: APITypeStrategy<Message> {
         }
     }
 
-    data class ProtobufResponse(val data: Descriptors.Descriptor): RequestResponse<Message> {
-        override fun decode(body: ByteArray): Message = DynamicMessage.parseFrom(data, body)
+    data class ProtobufResponse(val data: Descriptors.Descriptor) : RequestResponse<Message, HttpResponse> {
+        override suspend fun decode(response: HttpResponse): Either<String, String> =
+            if (response.status == HttpStatusCode.OK) {
+                val responseText = response.readBytes()
+                val decodedData = DynamicMessage.parseFrom(data, responseText)
+                Either.Right(JsonFormat.printer().print(decodedData))
+            } else {
+                Either.Left(response.readText())
+            }
     }
 }
