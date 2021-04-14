@@ -10,7 +10,6 @@ import org.jetbrains.middleware.builder.RequestParams
 import org.jetbrains.middleware.builder.RequestResponse
 import java.lang.reflect.Type
 import java.util.concurrent.CompletableFuture
-import kotlinx.coroutines.future.future
 
 val gson = Gson()
 
@@ -30,11 +29,13 @@ class JsonRpcStrategy(private val launcher: Launcher<*>) : APITypeStrategy<List<
     sealed class JsonRpcObject : Any()
 
     data class JsonRpcParams(private val parameterTypes: List<Type>) : RequestParams<List<JsonRpcObject>> {
-        override fun encode(body: String): List<JsonRpcObject> {
+        override fun encode(body: String): List<JsonRpcObject> = if (parameterTypes.isEmpty()) {
+            emptyList()
+        } else {
             val element = JsonParser.parseString(body)
             val obj = element.asJsonArray
 
-            return obj.mapIndexed { i, el -> gson.fromJson(el, parameterTypes[i]) }
+            obj.mapIndexed { i, el -> gson.fromJson(el, parameterTypes[i]) }
         }
 
     }
