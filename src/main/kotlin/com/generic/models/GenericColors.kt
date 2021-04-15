@@ -39,7 +39,19 @@ class GenericColors {
             fun hasRgbMode(): Boolean = rgbMode != null
             fun hasCmykMode(): Boolean = cmykMode != null
             fun hasHsvMode(): Boolean = hsvMode != null
+
+            override fun toString(): String {
+                return when {
+                    hasHexMode() -> hexMode.toString()
+                    hasRgbMode() -> rgbMode.toString()
+                    hasCmykMode() -> cmykMode.toString()
+                    hasHsvMode() -> hsvMode.toString()
+                    else -> ""
+                }
+            }
         }
+
+        override fun toString(): String = "$colorDef (${if (webSafe) "web-safe" else "not web-safe"})"
     }
 
     data class HEX(
@@ -75,18 +87,32 @@ class GenericColors {
     data class ColorConversionRequest(
         val colorMode: ColorMode,
         val color: Color
-    )
+    ){
+        override fun toString(): String = "Request color conversion for color: $color.\nConvert to $colorMode."
+    }
 
     data class ColorConversionResponse(
         val colorMode: ColorMode,
         val color: Color
-    )
+    ){
+        override fun toString(): String = "Color converted to $colorMode.\nResult: $color"
+    }
 
     data class ColorPaletteRequest(
         val color: Color
-    )
+    ){
+        override fun toString(): String = "Color palette requested for color: $color"
+    }
 
     data class ColorPaletteResponse(
         val palette: List<Color>
-    )
+    ){
+        override fun toString(): String {
+            var representation = "Generated color palette:"
+
+            palette.forEach { representation += ("\n\t$it") }
+
+            return representation
+        }
+    }
 }

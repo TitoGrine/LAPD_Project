@@ -15,15 +15,19 @@ public class Server implements ColorServer {
     public CompletableFuture<GenericColors.Color> getRandomHexColor(){
         return CompletableFuture.completedFuture(ColorBuilderKt.buildHEXColor(ColorRandomizerKt.getRandomHexColor()));
     }
+
     public CompletableFuture<GenericColors.Color> getRandomRGBColor(){
         return CompletableFuture.completedFuture(ColorBuilderKt.buildRGBColor(ColorRandomizerKt.getRandomRGBColor()));
     }
+
     public CompletableFuture<GenericColors.Color> getRandomCMYKColor(){
         return CompletableFuture.completedFuture(ColorBuilderKt.buildCMYKColor(ColorRandomizerKt.getRandomCMYKColor()));
     }
+
     public CompletableFuture<GenericColors.Color> getRandomHSVColor(){
         return CompletableFuture.completedFuture(ColorBuilderKt.buildHSVColor(ColorRandomizerKt.getRandomHSVColor()));
     }
+
     public CompletableFuture<GenericColors.ColorConversionResponse> convertColor(GenericColors.ColorConversionRequest request) {
         if(request == null)
             return CompletableFuture.failedFuture(new Throwable("Request can't be null"));

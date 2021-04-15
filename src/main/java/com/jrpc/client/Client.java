@@ -1,7 +1,6 @@
 package com.jrpc.client;
 
 import com.generic.models.GenericColors;
-import com.jrpc.server.Server;
 import com.jrpc.shared.ColorClient;
 import com.jrpc.shared.ColorServer;
 
@@ -13,20 +12,25 @@ public class Client implements ColorClient {
     private Scanner scanner = new Scanner(System.in);
 
     private int getOperationFromUser(){
-        System.out.println("\nOperations:");
+        System.out.println();
+        System.out.println("Operations:");
         System.out.println("    [1] - Get random color");
         System.out.println("    [2] - Convert color");
         System.out.println("    [3] - Generate color palette");
-        System.out.println("    [0] - Exit");
+        System.out.println();
 
         int choice = -1;
 
         while(choice < 0 || 3 < choice){
-            scanner.nextLine();
-            System.out.println("\nChoose operation: ");
-
+            System.out.println("Choose operation: ");
+            while(!scanner.hasNextInt()){
+                scanner.nextLine();
+            }
             choice = scanner.nextInt();
         }
+
+        scanner.nextLine();
+        System.out.println();
 
         return choice;
     }
@@ -52,21 +56,28 @@ public class Client implements ColorClient {
         }
     }
 
-    private int getColorModeFromUser() {
-        System.out.println("\nColor Modes:");
+    private int getColorModeFromUser(String title) {
+        System.out.println();
+        System.out.printf("%s:%n", title);
         System.out.println("    [1] - Hexadecimal");
         System.out.println("    [2] - RGB");
         System.out.println("    [3] - CMYK");
         System.out.println("    [4] - HSV");
+        System.out.println();
 
         int choice = -1;
 
         while(choice < 1 || 4 < choice){
-            scanner.nextLine();
-            System.out.println("\nChoose mode: ");
+            System.out.println("Choose mode: ");
+            while(!scanner.hasNextInt()){
+                scanner.nextLine();
+            }
 
             choice = scanner.nextInt();
         }
+
+        scanner.nextLine();
+        System.out.println();
 
         return choice;
     }
@@ -74,7 +85,7 @@ public class Client implements ColorClient {
     private void randomColorOperation(ColorServer server) throws ExecutionException, InterruptedException {
         GenericColors.Color result;
 
-        switch (getColorModeFromUser()){
+        switch (getColorModeFromUser("Choose color mode for random color")){
             case 1:
                 result = server.getRandomHexColor().get();
                 System.out.println(result.toString());
@@ -96,49 +107,52 @@ public class Client implements ColorClient {
     }
 
     private GenericColors.Color getHexFromUser() {
-        System.out.print("Insert an hexadecimal color code: ");
+        System.out.println("Insert an hexadecimal color code: ");
         String code = scanner.nextLine();
 
         return new GenericColors.Color(new GenericColors.Color.Mode(new GenericColors.HEX(code)));
     }
 
     private GenericColors.Color getRGBFromUser() {
-        System.out.print("Insert the red color value (0-255): ");
+        System.out.println("Insert the red color value (0-255): ");
         int red = scanner.nextInt();
-        System.out.print("Insert the green color value (0-255): ");
+        System.out.println("Insert the green color value (0-255): ");
         int green = scanner.nextInt();
-        System.out.print("Insert the blue color value (0-255): ");
+        System.out.println("Insert the blue color value (0-255): ");
         int blue = scanner.nextInt();
+        scanner.nextLine();
 
         return new GenericColors.Color(new GenericColors.Color.Mode(new GenericColors.RGB(red, green, blue)));
     }
 
     private GenericColors.Color getCMYKFromUser() {
-        System.out.print("Insert the cyan color value (0-1): ");
+        System.out.println("Insert the cyan color value (0-1): ");
         float cyan = scanner.nextFloat();
-        System.out.print("Insert the magenta color value (0-1): ");
+        System.out.println("Insert the magenta color value (0-1): ");
         float magenta = scanner.nextFloat();
-        System.out.print("Insert the yellow color value (0-1): ");
+        System.out.println("Insert the yellow color value (0-1): ");
         float yellow = scanner.nextFloat();
-        System.out.print("Insert the key color value (0-1): ");
+        System.out.println("Insert the key color value (0-1): ");
         float key = scanner.nextFloat();
+        scanner.nextLine();
 
         return new GenericColors.Color(new GenericColors.Color.Mode(new GenericColors.CMYK(cyan, magenta, yellow, key)));
     }
 
     private GenericColors.Color getHSVFromUser() {
-        System.out.print("Insert the hue (0-360): ");
+        System.out.println("Insert the hue (0-360): ");
         int hue = scanner.nextInt();
-        System.out.print("Insert the saturation (0-1): ");
+        System.out.println("Insert the saturation (0-1): ");
         float saturation = scanner.nextFloat();
-        System.out.print("Insert the value (0-1): ");
+        System.out.println("Insert the value (0-1): ");
         float value = scanner.nextFloat();
+        scanner.nextLine();
 
         return new GenericColors.Color(new GenericColors.Color.Mode(new GenericColors.HSV(hue, saturation, value)));
     }
 
-    private GenericColors.Color getColorFromUser() {
-        switch (getColorModeFromUser()){
+    private GenericColors.Color getColorFromUser(String text) {
+        switch (getColorModeFromUser(text)){
             case 1:
                 return getHexFromUser();
             case 2:
@@ -152,10 +166,10 @@ public class Client implements ColorClient {
     }
 
     private void convertColorOperation(ColorServer server) throws ExecutionException, InterruptedException {
-        GenericColors.Color color = getColorFromUser();
+        GenericColors.Color color = getColorFromUser("Color mode for original color");
         GenericColors.ColorMode colorMode;
 
-        switch (getColorModeFromUser()){
+        switch (getColorModeFromUser("Color mode to convert to")){
             case 1:
                 colorMode = GenericColors.ColorMode.HEX_MODE;
                 break;
@@ -174,14 +188,16 @@ public class Client implements ColorClient {
         GenericColors.ColorConversionResponse response = server.convertColor(request).get();
 
         System.out.println(response.toString());
+        System.out.println();
     }
 
     private void generatePaletteOperation(ColorServer server) throws ExecutionException, InterruptedException {
-        GenericColors.Color color = getColorFromUser();
+        GenericColors.Color color = getColorFromUser("Color mode for base color");
 
         GenericColors.ColorPaletteRequest request = new GenericColors.ColorPaletteRequest(color);
         GenericColors.ColorPaletteResponse response = server.generateColorPalette(request).get();
 
         System.out.println(response.toString());
+        System.out.println();
     }
 }

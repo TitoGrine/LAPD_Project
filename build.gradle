@@ -40,3 +40,17 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+task startServer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.jrpc.server.ServerLauncher'
+    args '3000'
+    standardInput = System.in
+}
+
+task startClient(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.jrpc.client.ClientLauncher'
+    args 'localhost', '3000'
+    standardInput = System.in
+}
