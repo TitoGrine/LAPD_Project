@@ -2,12 +2,14 @@ package org.jetbrains.middleware
 
 import com.google.protobuf.*
 import com.proto.models.Colors
+import io.ktor.client.statement.*
 import org.jetbrains.middleware.builder.*
+import org.jetbrains.middleware.builder.server.MiddlewareServer
 import org.jetbrains.middleware.builder.strategies.ProtobufStrategy
 
 // Example to play around with
 fun main() {
-    MiddlewareServer.Builder<Message>()
+    MiddlewareServer.Builder<Message, HttpResponse>()
         .portToServe(8000)
         .setStrategy(ProtobufStrategy())
         .serverUrl("http://localhost:8080")
