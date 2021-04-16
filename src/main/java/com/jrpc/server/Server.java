@@ -13,37 +13,37 @@ public class Server implements ColorServer {
     private final List<ColorClient> clients = new CopyOnWriteArrayList<>();
 
     public CompletableFuture<GenericColors.Color> getRandomHexColor(){
-        return CompletableFuture.completedFuture(ColorBuilderKt.buildHEXColor(ColorRandomizerKt.getRandomHexColor()));
+        return CompletableFuture.supplyAsync(() -> ColorBuilderKt.buildHEXColor(ColorRandomizerKt.getRandomHexColor()));
     }
 
     public CompletableFuture<GenericColors.Color> getRandomRGBColor(){
-        return CompletableFuture.completedFuture(ColorBuilderKt.buildRGBColor(ColorRandomizerKt.getRandomRGBColor()));
+        return CompletableFuture.supplyAsync(() -> ColorBuilderKt.buildRGBColor(ColorRandomizerKt.getRandomRGBColor()));
     }
 
     public CompletableFuture<GenericColors.Color> getRandomCMYKColor(){
-        return CompletableFuture.completedFuture(ColorBuilderKt.buildCMYKColor(ColorRandomizerKt.getRandomCMYKColor()));
+        return CompletableFuture.supplyAsync(() -> ColorBuilderKt.buildCMYKColor(ColorRandomizerKt.getRandomCMYKColor()));
     }
 
     public CompletableFuture<GenericColors.Color> getRandomHSVColor(){
-        return CompletableFuture.completedFuture(ColorBuilderKt.buildHSVColor(ColorRandomizerKt.getRandomHSVColor()));
+        return CompletableFuture.supplyAsync(() -> ColorBuilderKt.buildHSVColor(ColorRandomizerKt.getRandomHSVColor()));
     }
 
     public CompletableFuture<GenericColors.ColorConversionResponse> convertColor(GenericColors.ColorConversionRequest request) {
-        if(request == null)
-            return CompletableFuture.failedFuture(new Throwable("Request can't be null"));
+        return CompletableFuture.supplyAsync(() -> {
+            if(request == null)
+                return null;
 
-        GenericColors.ColorConversionResponse response = ColorConverterKt.convertColor(request);
-
-        return CompletableFuture.completedFuture(response);
+            return ColorConverterKt.convertColor(request);
+        });
     }
 
     public CompletableFuture<GenericColors.ColorPaletteResponse> generateColorPalette(GenericColors.ColorPaletteRequest request) {
-        if(request == null)
-            return CompletableFuture.failedFuture(new Throwable("Request can't be null"));
+        return CompletableFuture.supplyAsync(() -> {
+            if(request == null)
+                return null;
 
-        GenericColors.ColorPaletteResponse response = ColorPaletteGeneratorKt.generatePalette(request);
-
-        return CompletableFuture.completedFuture(response);
+            return ColorPaletteGeneratorKt.generatePalette(request);
+        });
     }
 
     public Runnable addClient(ColorClient client) {
