@@ -1,12 +1,15 @@
-package com.proto.controllers
+package com.generic.controllers
 
+import com.generic.models.GenericColors
 import com.proto.models.Colors
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-fun isWebSafe(color: Colors.HEX): Boolean {
+fun isWebSafe(color: GenericColors.HEX?): Boolean {
+    if(color == null) return false
+
     val webSafeCodes = arrayOf("00", "33", "66", "99", "CC", "FF")
     val rawCode = color.code.filterNot { c -> c == '#' }
 
@@ -17,23 +20,25 @@ fun isWebSafe(color: Colors.HEX): Boolean {
     return webSafeCodes.contains(byte1) and webSafeCodes.contains(byte2) and webSafeCodes.contains(byte3)
 }
 
-fun isWebSafe(color: Colors.RGB): Boolean {
+fun isWebSafe(color: GenericColors.RGB?): Boolean {
     return isWebSafe(RGB_2_HEX(color))
 }
 
-fun isWebSafe(color: Colors.CMYK): Boolean {
+fun isWebSafe(color: GenericColors.CMYK?): Boolean {
     return isWebSafe(CMYK_2_HEX(color))
 }
 
-fun isWebSafe(color: Colors.HSV): Boolean {
+fun isWebSafe(color: GenericColors.HSV?): Boolean {
     return isWebSafe(HSV_2_HEX(color))
 }
 
-fun HEX_2_HEX(hex: Colors.HEX): Colors.HEX {
-    return hex
+fun HEX_2_HEX(hex: GenericColors.HEX?): GenericColors.HEX {
+    return hex!!
 }
 
-fun HEX_2_RGB(hex: Colors.HEX): Colors.RGB {
+fun HEX_2_RGB(hex: GenericColors.HEX?): GenericColors.RGB {
+    if(hex == null) return buildRGB(-1, -1, -1)
+
     val rawCode = hex.code.filterNot { c -> c == '#' }
 
     if (rawCode.length != 6)
@@ -46,15 +51,17 @@ fun HEX_2_RGB(hex: Colors.HEX): Colors.RGB {
     return buildRGB(red, green, blue)
 }
 
-fun HEX_2_CMYK(hex: Colors.HEX): Colors.CMYK {
+fun HEX_2_CMYK(hex: GenericColors.HEX?): GenericColors.CMYK {
     return RGB_2_CMYK(HEX_2_RGB(hex))
 }
 
-fun HEX_2_HSV(hex: Colors.HEX): Colors.HSV {
+fun HEX_2_HSV(hex: GenericColors.HEX?): GenericColors.HSV {
     return RGB_2_HSV(HEX_2_RGB(hex))
 }
 
-fun RGB_2_HEX(rgb: Colors.RGB): Colors.HEX {
+fun RGB_2_HEX(rgb: GenericColors.RGB?): GenericColors.HEX {
+    if(rgb == null) return buildHEX("")
+
     val red = String.format("%02X", rgb.red)
     val green = String.format("%02X", rgb.green)
     val blue = String.format("%02X", rgb.blue)
@@ -62,11 +69,13 @@ fun RGB_2_HEX(rgb: Colors.RGB): Colors.HEX {
     return buildHEX("#$red$green$blue")
 }
 
-fun RGB_2_RGB(rgb: Colors.RGB): Colors.RGB {
-    return rgb
+fun RGB_2_RGB(rgb: GenericColors.RGB?): GenericColors.RGB {
+    return rgb!!
 }
 
-fun RGB_2_CMYK(rgb: Colors.RGB): Colors.CMYK {
+fun RGB_2_CMYK(rgb: GenericColors.RGB?): GenericColors.CMYK {
+    if(rgb == null) return buildCMYK(-1f, -1f, -1f, -1f)
+
     val red = rgb.red
     val green = rgb.green
     val blue = rgb.blue
@@ -87,7 +96,9 @@ fun RGB_2_CMYK(rgb: Colors.RGB): Colors.CMYK {
     return buildCMYK(cyan, magenta, yellow, K)
 }
 
-fun RGB_2_HSV(rgb: Colors.RGB): Colors.HSV {
+fun RGB_2_HSV(rgb: GenericColors.RGB?): GenericColors.HSV {
+    if(rgb == null) return buildHSV(-1, -1f, -1f)
+
     val red = rgb.red
     val green = rgb.green
     val blue = rgb.blue
@@ -126,11 +137,13 @@ fun RGB_2_HSV(rgb: Colors.RGB): Colors.HSV {
     return buildHSV(hue.roundToInt(), saturation, value)
 }
 
-fun CMYK_2_HEX(cmyk: Colors.CMYK): Colors.HEX {
+fun CMYK_2_HEX(cmyk: GenericColors.CMYK?): GenericColors.HEX {
     return RGB_2_HEX(CMYK_2_RGB(cmyk))
 }
 
-fun CMYK_2_RGB(cmyk: Colors.CMYK): Colors.RGB {
+fun CMYK_2_RGB(cmyk: GenericColors.CMYK?): GenericColors.RGB {
+    if(cmyk == null) return buildRGB(-1, -1, -1)
+
     val cyan = cmyk.cyan
     val magenta = cmyk.magenta
     val yellow = cmyk.yellow
@@ -143,19 +156,21 @@ fun CMYK_2_RGB(cmyk: Colors.CMYK): Colors.RGB {
     return buildRGB(red.roundToInt(), green.roundToInt(), blue.roundToInt())
 }
 
-fun CMYK_2_CMYK(cmyk: Colors.CMYK): Colors.CMYK {
-    return cmyk
+fun CMYK_2_CMYK(cmyk: GenericColors.CMYK?): GenericColors.CMYK {
+    return cmyk!!
 }
 
-fun CMYK_2_HSV(cmyk: Colors.CMYK): Colors.HSV {
+fun CMYK_2_HSV(cmyk: GenericColors.CMYK?): GenericColors.HSV {
     return RGB_2_HSV(CMYK_2_RGB(cmyk))
 }
 
-fun HSV_2_HEX(hsv: Colors.HSV): Colors.HEX {
+fun HSV_2_HEX(hsv: GenericColors.HSV?): GenericColors.HEX {
     return RGB_2_HEX(HSV_2_RGB(hsv))
 }
 
-fun HSV_2_RGB(hsv: Colors.HSV): Colors.RGB {
+fun HSV_2_RGB(hsv: GenericColors.HSV?): GenericColors.RGB {
+    if(hsv == null) return buildRGB(-1, -1, -1)
+
     val hue: Float = hsv.hue / 360.0f
     val saturation: Float = hsv.saturation
     val value: Float = hsv.value
@@ -209,25 +224,27 @@ fun HSV_2_RGB(hsv: Colors.HSV): Colors.RGB {
     return buildRGB(red.roundToInt(), green.roundToInt(), blue.roundToInt())
 }
 
-fun HSV_2_CMYK(hsv: Colors.HSV): Colors.CMYK {
+fun HSV_2_CMYK(hsv: GenericColors.HSV?): GenericColors.CMYK {
     return RGB_2_CMYK(HSV_2_RGB(hsv))
 }
 
-fun HSV_2_HSV(hsv: Colors.HSV): Colors.HSV {
-    return hsv
+fun HSV_2_HSV(hsv: GenericColors.HSV?): GenericColors.HSV {
+    return hsv!!
 }
 
-fun generatePalette(color: Colors.HSV): List<Colors.HSV> {
+fun generatePalette(color: GenericColors.HSV?): List<GenericColors.HSV> {
+    if(color == null) return ArrayList<GenericColors.HSV>(0)
+
     var hue = color.hue
     val saturation = color.saturation
     val value = color.value
 
     val delta = (10..50).random()
-    val palette = ArrayList<Colors.HSV>(6)
+    val palette = ArrayList<GenericColors.HSV>(6)
     palette.add(color)
 
     for (i in 1..5) {
-        hue += delta
+        hue = (hue + delta) % 361
 
         palette.add(buildHSV(hue, saturation, value))
     }
