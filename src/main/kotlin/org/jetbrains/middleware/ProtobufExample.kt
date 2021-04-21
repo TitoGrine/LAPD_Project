@@ -16,6 +16,33 @@ fun main() {
         .serverUrl("http://localhost:8080")
         .addRequest(
             RequestDetails(
+                "/hex/random",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.Color.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.Color.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "hex/convert",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.ColorConversionRequest.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.ColorConversionResponse.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "hex/palette",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.ColorPaletteRequest.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.ColorPaletteResponse.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
                 "/cmyk/random",
                 RequestData(
                     ProtobufStrategy.ProtobufParams(Colors.Color.newBuilder()),
@@ -29,6 +56,33 @@ fun main() {
                 RequestData(
                     ProtobufStrategy.ProtobufParams(Colors.ColorConversionRequest.newBuilder()),
                     ProtobufStrategy.ProtobufResponse(Colors.ColorConversionResponse.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "/hsv/random",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.Color.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.Color.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "hsv/convert",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.ColorConversionRequest.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.ColorConversionResponse.getDescriptor())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "hsv/palette",
+                RequestData(
+                    ProtobufStrategy.ProtobufParams(Colors.ColorPaletteRequest.newBuilder()),
+                    ProtobufStrategy.ProtobufResponse(Colors.ColorPaletteResponse.getDescriptor())
                 )
             )
         )

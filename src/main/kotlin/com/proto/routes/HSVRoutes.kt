@@ -6,6 +6,7 @@ import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomHSVColor
 import com.proto.converters.*
 import com.proto.models.Colors
+import com.proto.printCall
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -15,10 +16,14 @@ import io.ktor.routing.*
 fun Route.hsvRouting() {
     route("/hsv") {
         get("/random") {
+            printCall("/hsv/convert")
+
             call.respond(GenericColor_2_Color(buildHSVColor(getRandomHSVColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
+
+            printCall("/hsv/convert")
 
             if (!conversionRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
@@ -39,6 +44,8 @@ fun Route.hsvRouting() {
         }
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
+
+            printCall("/hsv/convert")
 
             if (!paletteRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)

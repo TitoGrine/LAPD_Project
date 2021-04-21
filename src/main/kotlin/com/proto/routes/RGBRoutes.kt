@@ -6,6 +6,7 @@ import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomRGBColor
 import com.proto.converters.*
 import com.proto.models.Colors
+import com.proto.printCall
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -15,10 +16,14 @@ import io.ktor.routing.*
 fun Route.rgbRouting() {
     route("/rgb") {
         get("/random") {
+            printCall("/rgb/random")
+
             call.respond(GenericColor_2_Color(buildRGBColor(getRandomRGBColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
+
+            printCall("/rgb/convert")
 
             if (!conversionRequest.color.colorDef.hasRgbMode())
                 call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)
@@ -39,6 +44,8 @@ fun Route.rgbRouting() {
         }
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
+
+            printCall("/rgb/palette")
 
             if (!paletteRequest.color.colorDef.hasRgbMode())
                 call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)

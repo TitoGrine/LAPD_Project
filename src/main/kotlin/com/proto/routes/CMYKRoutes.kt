@@ -6,6 +6,7 @@ import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomCMYKColor
 import com.proto.converters.*
 import com.proto.models.Colors
+import com.proto.printCall
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -15,10 +16,14 @@ import io.ktor.routing.*
 fun Route.cmykRouting() {
     route("/cmyk") {
         get("/random") {
+            printCall("/cmyk/convert")
+
             call.respond(GenericColor_2_Color(buildCMYKColor(getRandomCMYKColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
+
+            printCall("/cmyk/convert")
 
             if (!conversionRequest.color.colorDef.hasCmykMode())
                 call.respondText("Color Mode must be CMYK", status = HttpStatusCode.BadRequest)
@@ -39,6 +44,8 @@ fun Route.cmykRouting() {
         }
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
+
+            printCall("/cmyk/convert")
 
             if (!paletteRequest.color.colorDef.hasCmykMode())
                 call.respondText("Color Mode must be CMYK", status = HttpStatusCode.BadRequest)

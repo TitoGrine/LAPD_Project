@@ -14,7 +14,7 @@ class ClientExample : ColorClient
 
 
 fun main() {
-    MiddlewareServer.Builder<List<JsonRpcStrategy.JsonRpcObject>, CompletableFuture<*>>()
+    MiddlewareServer.Builder<List<*>, CompletableFuture<*>>()
         .portToServe(8888)
         .serverUrl("localhost:3000")
         .setStrategy(JsonRpcStrategy("localhost", 3000, ColorServer::class.java, ClientExample()))

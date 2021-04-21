@@ -6,6 +6,7 @@ import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomHexColor
 import com.proto.converters.*
 import com.proto.models.Colors
+import com.proto.printCall
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -15,10 +16,14 @@ import io.ktor.routing.*
 fun Route.hexRouting() {
     route("/hex") {
         get("/random") {
+            printCall("/hex/convert")
+
             call.respond(GenericColor_2_Color(buildHEXColor(getRandomHexColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
+
+            printCall("/hex/convert")
 
             if (!conversionRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)
@@ -39,6 +44,8 @@ fun Route.hexRouting() {
         }
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
+
+            printCall("/hex/convert")
 
             if (!paletteRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)

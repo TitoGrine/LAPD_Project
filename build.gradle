@@ -63,5 +63,5 @@ task startJsonRpcExample(type: JavaExec) {
 
 task startProtobufExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.jetbrains.middleware.JsonRpcExample'
+    main = 'org.jetbrains.middleware.ProtobufExample'
 }

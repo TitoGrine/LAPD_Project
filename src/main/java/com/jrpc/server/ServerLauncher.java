@@ -44,7 +44,7 @@ public class ServerLauncher {
                 }
             });
 
-            System.out.print("Enter any character to stop..");
+            System.out.println("Enter any character to stop..");
             System.in.read();
             System.exit(0);
         }
