@@ -1,3 +1,4 @@
+@file:JvmName("JsonRpcExample")
 package org.jetbrains.middleware
 
 import com.jrpc.shared.ColorClient

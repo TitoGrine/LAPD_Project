@@ -1,3 +1,4 @@
+@file:JvmName("ProtobufExample")
 package org.jetbrains.middleware
 
 import com.google.protobuf.*
