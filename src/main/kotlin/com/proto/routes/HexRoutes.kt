@@ -16,7 +16,7 @@ import io.ktor.routing.*
 fun Route.hexRouting() {
     route("/hex") {
         get("/random") {
-            printCall("/hex/convert")
+            printCall("/hex/random")
 
             call.respond(GenericColor_2_Color(buildHEXColor(getRandomHexColor())))
         }
@@ -45,7 +45,7 @@ fun Route.hexRouting() {
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
 
-            printCall("/hex/convert")
+            printCall("/hex/palette")
 
             if (!paletteRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)

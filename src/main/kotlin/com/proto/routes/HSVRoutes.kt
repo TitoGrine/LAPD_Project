@@ -16,7 +16,7 @@ import io.ktor.routing.*
 fun Route.hsvRouting() {
     route("/hsv") {
         get("/random") {
-            printCall("/hsv/convert")
+            printCall("/hsv/random")
 
             call.respond(GenericColor_2_Color(buildHSVColor(getRandomHSVColor())))
         }
@@ -45,7 +45,7 @@ fun Route.hsvRouting() {
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
 
-            printCall("/hsv/convert")
+            printCall("/hsv/palette")
 
             if (!paletteRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)

@@ -19,10 +19,12 @@ Content-Type: application/json
   {
     "colorMode": "CMYK_MODE",
     "color": {
-      "hsvMode": {
-        "hue": 230,
-        "saturation": 0.5,
-        "value": 0.3
+      "colorDef": {
+        "hsvMode": {
+          "hue": 230,
+          "saturation": 0.5,
+          "value": 0.3
+        }
       }
     }
   }
