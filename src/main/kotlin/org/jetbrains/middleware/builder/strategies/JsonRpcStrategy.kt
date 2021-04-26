@@ -54,7 +54,6 @@ class JsonRpcStrategy<T>(private val host: String, port: Int, interfaceClass: Cl
         return requestData.response.decode(response)
     }
 
-    sealed class JsonRpcObject : Any()
 
     data class JsonRpcParams(private val parameterTypes: List<Type>) : RequestParams<List<*>> {
         override fun encode(body: String): List<Any> = if (parameterTypes.isEmpty()) {
