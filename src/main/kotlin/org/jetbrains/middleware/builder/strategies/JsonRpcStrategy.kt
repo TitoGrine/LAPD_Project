@@ -16,7 +16,7 @@ import java.util.concurrent.Executors
 val gson = Gson()
 
 class JsonRpcStrategy<T>(private val host: String, port: Int, interfaceClass: Class<T>, client: Any) :
-    APITypeStrategy<List<JsonRpcStrategy.JsonRpcObject>, CompletableFuture<*>> {
+    APITypeStrategy<List<*>, CompletableFuture<*>> {
 
     private val launcher: Launcher<T> by lazy {
         // connect to the server
@@ -45,19 +45,18 @@ class JsonRpcStrategy<T>(private val host: String, port: Int, interfaceClass: Cl
     override suspend fun sendRequest(
         host: String,
         url: String,
-        requestData: RequestData<List<JsonRpcObject>, CompletableFuture<*>>,
+        requestData: RequestData<List<*>, CompletableFuture<*>>,
         parameters: String
     ): Either<String, String> {
         val encodedParams = requestData.params.encode(parameters)
-        val response = launcher.remoteEndpoint.request(url, encodedParams)
+        val response = launcher.remoteEndpoint.request(url, if (encodedParams.size == 1) encodedParams[0] else encodedParams)
 
         return requestData.response.decode(response)
     }
 
-    sealed class JsonRpcObject : Any()
 
-    data class JsonRpcParams(private val parameterTypes: List<Type>) : RequestParams<List<JsonRpcObject>> {
-        override fun encode(body: String): List<JsonRpcObject> = if (parameterTypes.isEmpty()) {
+    data class JsonRpcParams(private val parameterTypes: List<Type>) : RequestParams<List<*>> {
+        override fun encode(body: String): List<Any> = if (parameterTypes.isEmpty()) {
             emptyList()
         } else {
             val element = JsonParser.parseString(body)
@@ -68,7 +67,7 @@ class JsonRpcStrategy<T>(private val host: String, port: Int, interfaceClass: Cl
 
     }
 
-    data class JsonRpcResponse(val returnType: Type) : RequestResponse<List<JsonRpcObject>, CompletableFuture<*>> {
+    data class JsonRpcResponse(val returnType: Type) : RequestResponse<List<*>, CompletableFuture<*>> {
         override suspend fun decode(response: CompletableFuture<*>): Either<String, String> {
             val encodedResponse = gson.toJson(response.await(), returnType)
             return Either.Right(encodedResponse)

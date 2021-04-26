@@ -1,0 +1,29 @@
+# Instalation steps
+
+## Requirements
+- Java, preferably Java 11 or higher
+- Kotlin
+
+
+## Running
+There are several tasks that can be run for the different examples. For this entire section, gradlew will be mentioned but please note that if you use Windows, gradlew.bat should be used.
+
+### Running the Protobuf Color Server
+```bash
+./gradlew run
+```
+
+### Running the JSON-RPC Color Server
+```bash
+./gradlew startServer
+```
+
+### Running the Middleware library for the Protobuf Color server
+```bash
+./gradlew startProtobufExample
+```
+
+### Running the Middleware library for the JSON-RPC Color server
+```bash
+./gradlew startJsonRpcExample
+```

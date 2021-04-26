@@ -1,0 +1,41 @@
+POST http://localhost:8000/hex/palette
+Content-Type: application/json
+
+{
+  "color": {
+    "colorDef": {
+      "hexMode": {
+        "code": "#CC6699"
+      }
+    }
+  }
+}
+
+###
+POST http://localhost:8888/server/color/convert
+Content-Type: application/json
+
+[
+  {
+    "colorMode": "CMYK_MODE",
+    "color": {
+      "colorDef": {
+        "hsvMode": {
+          "hue": 230,
+          "saturation": 0.5,
+          "value": 0.3
+        }
+      }
+    }
+  }
+]
+
+###
+POST http://localhost:8888/server/rgb/random
+Content-Type: application/json
+
+{}
+
+###
+
+

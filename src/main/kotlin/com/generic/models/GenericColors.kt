@@ -1,5 +1,7 @@
 package com.generic.models
 
+import com.google.gson.annotations.SerializedName
+
 class GenericColors {
     data class Color(
         val colorDef: Mode
@@ -78,9 +80,13 @@ class GenericColors {
     )
 
     enum class ColorMode {
+        @SerializedName("HEX_MODE")
         HEX_MODE,
+        @SerializedName("RGB_MODE")
         RGB_MODE,
+        @SerializedName("CMYK_MODE")
         CMYK_MODE,
+        @SerializedName("HSV_MODE")
         HSV_MODE
     }
 
@@ -88,7 +94,7 @@ class GenericColors {
         val colorMode: ColorMode,
         val color: Color
     ){
-        override fun toString(): String = "Request color conversion for color: $color.\nConvert to $colorMode."
+        override fun toString(): String = "Request color conversion to $colorMode for color: $color."
     }
 
     data class ColorConversionResponse(

@@ -7,8 +7,8 @@ import org.jetbrains.middleware.builder.server.MiddlewareServer
 import org.jetbrains.middleware.builder.strategies.JsonRpcStrategy
 import java.util.concurrent.CompletableFuture
 
-class JsonRpcRequestBuilder(private val interfaceClass: Class<*>) : RequestBuilder<List<JsonRpcStrategy.JsonRpcObject>, CompletableFuture<*>> {
-    override fun addRequests(builder: MiddlewareServer.Builder<List<JsonRpcStrategy.JsonRpcObject>, CompletableFuture<*>>) {
+class JsonRpcRequestBuilder(private val interfaceClass: Class<*>) : RequestBuilder<List<*>, CompletableFuture<*>> {
+    override fun addRequests(builder: MiddlewareServer.Builder<List<*>, CompletableFuture<*>>) {
         val endpoints = ServiceEndpoints.getSupportedMethods(interfaceClass)
         val requestsDetails = endpoints.map { entry ->
             RequestDetails(
