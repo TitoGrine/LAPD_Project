@@ -15,7 +15,7 @@ fun buildHEXColor(hexDef: Colors.HEX, webSafe: Boolean = false): Colors.Color = 
     .build()
 
 fun buildHEXColor(code: String, webSafe: Boolean = false): Colors.Color =
-    com.grpc.converters.buildHEXColor(com.grpc.converters.buildHEX(code), webSafe)
+    buildHEXColor(buildHEX(code), webSafe)
 
 fun buildHEX(code: String): Colors.HEX = Colors.HEX
     .newBuilder()
@@ -35,7 +35,7 @@ fun buildRGBColor(rgbDef: Colors.RGB, webSafe: Boolean = false): Colors.Color = 
     .build()
 
 fun buildRGBColor(red: Int, green: Int, blue: Int, webSafe: Boolean = false): Colors.Color =
-    com.grpc.converters.buildRGBColor(com.grpc.converters.buildRGB(red, green, blue), webSafe)
+    buildRGBColor(buildRGB(red, green, blue), webSafe)
 
 fun buildRGB(red: Int, green: Int, blue: Int): Colors.RGB = Colors.RGB
     .newBuilder()
@@ -57,7 +57,7 @@ fun buildCMYKColor(cmykDef: Colors.CMYK, webSafe: Boolean = false): Colors.Color
     .build()
 
 fun buildCMYKColor(cyan: Float, magenta: Float, yellow: Float, key: Float, webSafe: Boolean = false): Colors.Color =
-    com.grpc.converters.buildCMYKColor(com.grpc.converters.buildCMYK(cyan, magenta, yellow, key), webSafe)
+    buildCMYKColor(buildCMYK(cyan, magenta, yellow, key), webSafe)
 
 fun buildCMYK(cyan: Float, magenta: Float, yellow: Float, key: Float): Colors.CMYK = Colors.CMYK
     .newBuilder()
@@ -80,8 +80,8 @@ fun buildHSVColor(hsvDef: Colors.HSV, webSafe: Boolean = false): Colors.Color = 
     .build()
 
 fun buildHSVColor(hue: Int, saturation: Float, value: Float, webSafe: Boolean = false): Colors.Color =
-    com.grpc.converters.buildHSVColor(
-        com.grpc.converters.buildHSV(hue, saturation, value), webSafe
+    buildHSVColor(
+        buildHSV(hue, saturation, value), webSafe
     )
 
 fun buildHSV(hue: Int, saturation: Float, value: Float): Colors.HSV = Colors.HSV

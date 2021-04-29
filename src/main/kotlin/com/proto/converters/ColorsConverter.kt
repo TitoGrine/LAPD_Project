@@ -71,24 +71,24 @@ fun Color_2_GenericColor(color: Colors.Color): GenericColors.Color {
 fun GenericColor_2_Color(genericColor: GenericColors.Color): Colors.Color {
     when {
         genericColor.colorDef.hasHexMode() -> {
-            val hexColor = genericColor.colorDef.hexMode ?: return com.grpc.converters.buildHEXColor("")
+            val hexColor = genericColor.colorDef.hexMode ?: return buildHEXColor("")
 
-            return com.grpc.converters.buildHEXColor(hexColor.code, genericColor.webSafe)
+            return buildHEXColor(hexColor.code, genericColor.webSafe)
         }
         genericColor.colorDef.hasRgbMode() -> {
-            val rgbColor = genericColor.colorDef.rgbMode ?: return com.grpc.converters.buildRGBColor(-1, -1, -1)
+            val rgbColor = genericColor.colorDef.rgbMode ?: return buildRGBColor(-1, -1, -1)
 
-            return com.grpc.converters.buildRGBColor(rgbColor.red, rgbColor.green, rgbColor.blue, genericColor.webSafe)
+            return buildRGBColor(rgbColor.red, rgbColor.green, rgbColor.blue, genericColor.webSafe)
         }
         genericColor.colorDef.hasCmykMode() -> {
-            val cmykColor = genericColor.colorDef.cmykMode ?: return com.grpc.converters.buildCMYKColor(
+            val cmykColor = genericColor.colorDef.cmykMode ?: return buildCMYKColor(
                 -1f,
                 1f,
                 -1f,
                 -1f
             )
 
-            return com.grpc.converters.buildCMYKColor(
+            return buildCMYKColor(
                 cmykColor.cyan,
                 cmykColor.magenta,
                 cmykColor.yellow,
@@ -97,16 +97,16 @@ fun GenericColor_2_Color(genericColor: GenericColors.Color): Colors.Color {
             )
         }
         genericColor.colorDef.hasHsvMode() -> {
-            val hsvColor = genericColor.colorDef.hsvMode ?: return com.grpc.converters.buildHSVColor(-1, -1f, -1f)
+            val hsvColor = genericColor.colorDef.hsvMode ?: return buildHSVColor(-1, -1f, -1f)
 
-            return com.grpc.converters.buildHSVColor(
+            return buildHSVColor(
                 hsvColor.hue,
                 hsvColor.saturation,
                 hsvColor.value,
                 genericColor.webSafe
             )
         }
-        else -> return com.grpc.converters.buildHEXColor("")
+        else -> return buildHEXColor("")
     }
 }
 
@@ -114,8 +114,8 @@ fun ConversionRequest_2_GenericConversionRequest(conversionRequest: Colors.Color
     if (conversionRequest == null) return null
 
     val genericColorMode: GenericColors.ColorMode =
-        com.grpc.converters.ColorMode_2_GenericColorMode(conversionRequest.colorMode)
-    val genericColor: GenericColors.Color = com.grpc.converters.Color_2_GenericColor(conversionRequest.color)
+        ColorMode_2_GenericColorMode(conversionRequest.colorMode)
+    val genericColor: GenericColors.Color = Color_2_GenericColor(conversionRequest.color)
 
     return GenericColors.ColorConversionRequest(genericColorMode, genericColor)
 }
@@ -124,8 +124,8 @@ fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: Ge
     if (genericConversionResponse == null) return null
 
     val colorMode: Colors.ColorMode =
-        com.grpc.converters.GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
-    val color: Colors.Color = com.grpc.converters.GenericColor_2_Color(genericConversionResponse.color)
+        GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
+    val color: Colors.Color = GenericColor_2_Color(genericConversionResponse.color)
 
     return Colors.ColorConversionResponse.newBuilder().setColorMode(colorMode).setColor(color).build()
 }
@@ -133,7 +133,7 @@ fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: Ge
 fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: Colors.ColorPaletteRequest?): GenericColors.ColorPaletteRequest? {
     if (paletteRequest == null) return null
 
-    val color: GenericColors.Color = com.grpc.converters.Color_2_GenericColor(paletteRequest.color)
+    val color: GenericColors.Color = Color_2_GenericColor(paletteRequest.color)
 
     return GenericColors.ColorPaletteRequest(color)
 }
@@ -142,7 +142,7 @@ fun GenericPaletteResponse_2_PaletteResponse(genericPaletteResponse: GenericColo
     if (genericPaletteResponse == null) return null
 
     val palette: List<Colors.Color> =
-        genericPaletteResponse.palette.map { genericColor -> com.grpc.converters.GenericColor_2_Color(genericColor) }
+        genericPaletteResponse.palette.map { genericColor -> GenericColor_2_Color(genericColor) }
 
     return Colors.ColorPaletteResponse.newBuilder().addAllPalette(palette).build()
 }
