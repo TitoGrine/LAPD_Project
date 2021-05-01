@@ -119,6 +119,15 @@ fun ConversionRequest_2_GenericConversionRequest(conversionRequest: ColorConvers
     return GenericColors.ColorConversionRequest(genericColorMode, genericColor)
 }
 
+fun GenericConversionRequest_2_ConversionRequest(genericConversionRequest: GenericColors.ColorConversionRequest?): ColorConversionRequest? {
+    if (genericConversionRequest == null) return null
+
+    val genericColorMode: ColorMode = GenericColorMode_2_ColorMode(genericConversionRequest.colorMode)
+    val genericColor: Color = GenericColor_2_Color(genericConversionRequest.color)
+
+    return ColorConversionRequest.newBuilder().setColorMode(genericColorMode).setColor(genericColor).build()
+}
+
 fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: GenericColors.ColorConversionResponse?): ColorConversionResponse? {
     if (genericConversionResponse == null) return null
 
@@ -134,6 +143,14 @@ fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: ColorPaletteRequest?)
     val color: GenericColors.Color = Color_2_GenericColor(paletteRequest.color)
 
     return GenericColors.ColorPaletteRequest(color)
+}
+
+fun GenericPaletteRequest_2_PaletteRequest(genericPaletteRequest: GenericColors.ColorPaletteRequest?): ColorPaletteRequest? {
+    if (genericPaletteRequest == null) return null
+
+    val color: Color = GenericColor_2_Color(genericPaletteRequest.color)
+
+    return ColorPaletteRequest.newBuilder().setColor(color).build()
 }
 
 fun GenericPaletteResponse_2_PaletteResponse(genericPaletteResponse: GenericColors.ColorPaletteResponse?): ColorPaletteResponse? {
