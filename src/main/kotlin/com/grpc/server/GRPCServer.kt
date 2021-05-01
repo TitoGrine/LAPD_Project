@@ -1,10 +1,11 @@
 package com.grpc.server
 
+import com.grpc.shared.ColorsServiceImpl
 import io.grpc.Server
 import io.grpc.ServerBuilder
 
-class GRPCServer (
-    val port: Int,
+class GRPCServer(
+    private val port: Int,
     private val server: Server = ServerBuilder.forPort(port).addService(ColorsServiceImpl()).build()
 ) {
     fun start() {
@@ -24,9 +25,3 @@ class GRPCServer (
     }
 }
 
-fun main(args: Array<String>) {
-    val server = GRPCServer(8808)
-
-    server.start()
-    server.blockAndAwaitTermination()
-}

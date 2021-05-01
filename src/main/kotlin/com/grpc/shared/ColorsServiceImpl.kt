@@ -1,4 +1,4 @@
-package com.grpc.server
+package com.grpc.shared
 
 import com.generic.controllers.*
 import com.grpc.converters.*

@@ -9,16 +9,14 @@ import com.grpc.models.Void
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.asCoroutineDispatcher
 import kotlinx.coroutines.asExecutor
 import kotlinx.coroutines.runBlocking
 import java.io.Closeable
 import java.util.*
 import java.util.concurrent.ExecutionException
-import java.util.concurrent.Executors
 
 class GRPCClient(
-    val channel: ManagedChannel
+    private val channel: ManagedChannel
 ) : Closeable {
     private val stub = ColorsServiceGrpcKt.ColorsServiceCoroutineStub(channel)
     private val scanner = Scanner(System.`in`)
@@ -201,13 +199,3 @@ class GRPCClient(
     }
 }
 
-fun main() {
-    Executors.newFixedThreadPool(2).asCoroutineDispatcher().use { dispatcher ->
-        GRPCClient(
-            ManagedChannelBuilder.forAddress("localhost", 8008).usePlaintext(), dispatcher
-        ).use { client ->
-            println("Starting client on port 8008")
-            client.start()
-        }
-    }
-}
