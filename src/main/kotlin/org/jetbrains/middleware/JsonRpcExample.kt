@@ -3,7 +3,6 @@ package org.jetbrains.middleware
 
 import com.jrpc.shared.ColorClient
 import com.jrpc.shared.ColorServer
-import org.eclipse.lsp4j.jsonrpc.Launcher
 import org.jetbrains.middleware.builder.server.MiddlewareServer
 import org.jetbrains.middleware.builder.server.requests.JsonRpcRequestBuilder
 import org.jetbrains.middleware.builder.strategies.JsonRpcStrategy
