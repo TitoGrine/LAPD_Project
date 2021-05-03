@@ -19,7 +19,7 @@ class GRPCClient(
     private val channel: ManagedChannel
 ) : Closeable {
     private val stub = ColorsServiceGrpcKt.ColorsServiceCoroutineStub(channel)
-    private val scanner = Scanner(System.in)
+    private val scanner = Scanner(System.`in`)
 
     constructor(
         channelBuilder: ManagedChannelBuilder<*>,

@@ -5,12 +5,12 @@ import io.grpc.ManagedChannelBuilder
 import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.Executors
 
-fun main() {
+fun main(args: Array<String>) {
     Executors.newCachedThreadPool().asCoroutineDispatcher().use { dispatcher ->
         GRPCClient(
-            ManagedChannelBuilder.forAddress("localhost", 8808).usePlaintext(), dispatcher
+            ManagedChannelBuilder.forAddress(args[0], args[1].toInt()).usePlaintext(), dispatcher
         ).use { client ->
-            println("Starting client on port 8808")
+            println("Starting client on port ${args[1]}")
             client.start()
         }
     }

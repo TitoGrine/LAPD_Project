@@ -108,14 +108,14 @@ test {
 task startGRPCServer(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.grpc.server.ServerLauncher'
-    args '3000'
+    args '8808'
     standardInput = System.in
 }
 
 task startGRPCClient(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.grpc.client.ClientLauncher'
-    args 'localhost', '3000'
+    args 'localhost', '8808'
     standardInput = System.in
 }
 
