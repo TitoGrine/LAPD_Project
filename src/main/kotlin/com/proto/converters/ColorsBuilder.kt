@@ -14,7 +14,8 @@ fun buildHEXColor(hexDef: Colors.HEX, webSafe: Boolean = false): Colors.Color = 
     .setWebSafe(webSafe)
     .build()
 
-fun buildHEXColor(code: String, webSafe: Boolean = false): Colors.Color = buildHEXColor(buildHEX(code), webSafe)
+fun buildHEXColor(code: String, webSafe: Boolean = false): Colors.Color =
+    buildHEXColor(buildHEX(code), webSafe)
 
 fun buildHEX(code: String): Colors.HEX = Colors.HEX
     .newBuilder()
@@ -78,9 +79,10 @@ fun buildHSVColor(hsvDef: Colors.HSV, webSafe: Boolean = false): Colors.Color = 
     .setWebSafe(webSafe)
     .build()
 
-fun buildHSVColor(hue: Int, saturation: Float, value: Float, webSafe: Boolean = false): Colors.Color = buildHSVColor(
-    buildHSV(hue, saturation, value), webSafe
-)
+fun buildHSVColor(hue: Int, saturation: Float, value: Float, webSafe: Boolean = false): Colors.Color =
+    buildHSVColor(
+        buildHSV(hue, saturation, value), webSafe
+    )
 
 fun buildHSV(hue: Int, saturation: Float, value: Float): Colors.HSV = Colors.HSV
     .newBuilder()

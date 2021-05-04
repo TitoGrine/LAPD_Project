@@ -28,7 +28,8 @@ fun Route.hsvRouting() {
             if (!conversionRequest.color.colorDef.hasHsvMode())
                 call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
 
-            val genericConversionRequest = ConversionRequest_2_GenericConversionRequest(conversionRequest)
+            val genericConversionRequest =
+                ConversionRequest_2_GenericConversionRequest(conversionRequest)
 
             if (genericConversionRequest == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)

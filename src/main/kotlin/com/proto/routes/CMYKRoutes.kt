@@ -28,7 +28,8 @@ fun Route.cmykRouting() {
             if (!conversionRequest.color.colorDef.hasCmykMode())
                 call.respondText("Color Mode must be CMYK", status = HttpStatusCode.BadRequest)
 
-            val genericConversionRequest = ConversionRequest_2_GenericConversionRequest(conversionRequest)
+            val genericConversionRequest =
+                ConversionRequest_2_GenericConversionRequest(conversionRequest)
 
             if (genericConversionRequest == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)

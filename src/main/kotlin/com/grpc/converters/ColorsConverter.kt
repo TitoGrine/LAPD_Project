@@ -1,23 +1,23 @@
-package com.proto.converters
+package com.grpc.converters
 
 import com.generic.models.GenericColors
-import com.proto.models.Colors
+import com.grpc.models.*
 
-fun ColorMode_2_GenericColorMode(colorMode: Colors.ColorMode): GenericColors.ColorMode = when (colorMode) {
-    Colors.ColorMode.HEX_MODE -> GenericColors.ColorMode.HEX_MODE
-    Colors.ColorMode.RGB_MODE -> GenericColors.ColorMode.RGB_MODE
-    Colors.ColorMode.CMYK_MODE -> GenericColors.ColorMode.CMYK_MODE
-    Colors.ColorMode.HSV_MODE -> GenericColors.ColorMode.HSV_MODE
+fun ColorMode_2_GenericColorMode(colorMode: ColorMode): GenericColors.ColorMode = when (colorMode) {
+    ColorMode.HEX_MODE -> GenericColors.ColorMode.HEX_MODE
+    ColorMode.RGB_MODE -> GenericColors.ColorMode.RGB_MODE
+    ColorMode.CMYK_MODE -> GenericColors.ColorMode.CMYK_MODE
+    ColorMode.HSV_MODE -> GenericColors.ColorMode.HSV_MODE
 }
 
-fun GenericColorMode_2_ColorMode(colorMode: GenericColors.ColorMode): Colors.ColorMode = when (colorMode) {
-    GenericColors.ColorMode.HEX_MODE -> Colors.ColorMode.HEX_MODE
-    GenericColors.ColorMode.RGB_MODE -> Colors.ColorMode.RGB_MODE
-    GenericColors.ColorMode.CMYK_MODE -> Colors.ColorMode.CMYK_MODE
-    GenericColors.ColorMode.HSV_MODE -> Colors.ColorMode.HSV_MODE
+fun GenericColorMode_2_ColorMode(colorMode: GenericColors.ColorMode): ColorMode = when (colorMode) {
+    GenericColors.ColorMode.HEX_MODE -> ColorMode.HEX_MODE
+    GenericColors.ColorMode.RGB_MODE -> ColorMode.RGB_MODE
+    GenericColors.ColorMode.CMYK_MODE -> ColorMode.CMYK_MODE
+    GenericColors.ColorMode.HSV_MODE -> ColorMode.HSV_MODE
 }
 
-fun Color_2_GenericColor(color: Colors.Color): GenericColors.Color {
+fun Color_2_GenericColor(color: Color): GenericColors.Color {
     when {
         color.colorDef.hasHexMode() -> {
             val hexColor = color.colorDef.hexMode
@@ -68,7 +68,7 @@ fun Color_2_GenericColor(color: Colors.Color): GenericColors.Color {
     }
 }
 
-fun GenericColor_2_Color(genericColor: GenericColors.Color): Colors.Color {
+fun GenericColor_2_Color(genericColor: GenericColors.Color): Color {
     when {
         genericColor.colorDef.hasHexMode() -> {
             val hexColor = genericColor.colorDef.hexMode ?: return buildHEXColor("")
@@ -110,27 +110,34 @@ fun GenericColor_2_Color(genericColor: GenericColors.Color): Colors.Color {
     }
 }
 
-fun ConversionRequest_2_GenericConversionRequest(conversionRequest: Colors.ColorConversionRequest?): GenericColors.ColorConversionRequest? {
+fun ConversionRequest_2_GenericConversionRequest(conversionRequest: ColorConversionRequest?): GenericColors.ColorConversionRequest? {
     if (conversionRequest == null) return null
 
-    val genericColorMode: GenericColors.ColorMode =
-        ColorMode_2_GenericColorMode(conversionRequest.colorMode)
+    val genericColorMode: GenericColors.ColorMode = ColorMode_2_GenericColorMode(conversionRequest.colorMode)
     val genericColor: GenericColors.Color = Color_2_GenericColor(conversionRequest.color)
 
     return GenericColors.ColorConversionRequest(genericColorMode, genericColor)
 }
 
-fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: GenericColors.ColorConversionResponse?): Colors.ColorConversionResponse? {
-    if (genericConversionResponse == null) return null
+fun GenericConversionRequest_2_ConversionRequest(genericConversionRequest: GenericColors.ColorConversionRequest?): ColorConversionRequest? {
+    if (genericConversionRequest == null) return null
 
-    val colorMode: Colors.ColorMode =
-        GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
-    val color: Colors.Color = GenericColor_2_Color(genericConversionResponse.color)
+    val genericColorMode: ColorMode = GenericColorMode_2_ColorMode(genericConversionRequest.colorMode)
+    val genericColor: Color = GenericColor_2_Color(genericConversionRequest.color)
 
-    return Colors.ColorConversionResponse.newBuilder().setColorMode(colorMode).setColor(color).build()
+    return ColorConversionRequest.newBuilder().setColorMode(genericColorMode).setColor(genericColor).build()
 }
 
-fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: Colors.ColorPaletteRequest?): GenericColors.ColorPaletteRequest? {
+fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: GenericColors.ColorConversionResponse?): ColorConversionResponse? {
+    if (genericConversionResponse == null) return null
+
+    val colorMode: ColorMode = GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
+    val color: Color = GenericColor_2_Color(genericConversionResponse.color)
+
+    return ColorConversionResponse.newBuilder().setColorMode(colorMode).setColor(color).build()
+}
+
+fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: ColorPaletteRequest?): GenericColors.ColorPaletteRequest? {
     if (paletteRequest == null) return null
 
     val color: GenericColors.Color = Color_2_GenericColor(paletteRequest.color)
@@ -138,11 +145,19 @@ fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: Colors.ColorPaletteRe
     return GenericColors.ColorPaletteRequest(color)
 }
 
-fun GenericPaletteResponse_2_PaletteResponse(genericPaletteResponse: GenericColors.ColorPaletteResponse?): Colors.ColorPaletteResponse? {
+fun GenericPaletteRequest_2_PaletteRequest(genericPaletteRequest: GenericColors.ColorPaletteRequest?): ColorPaletteRequest? {
+    if (genericPaletteRequest == null) return null
+
+    val color: Color = GenericColor_2_Color(genericPaletteRequest.color)
+
+    return ColorPaletteRequest.newBuilder().setColor(color).build()
+}
+
+fun GenericPaletteResponse_2_PaletteResponse(genericPaletteResponse: GenericColors.ColorPaletteResponse?): ColorPaletteResponse? {
     if (genericPaletteResponse == null) return null
 
-    val palette: List<Colors.Color> =
+    val palette: List<Color> =
         genericPaletteResponse.palette.map { genericColor -> GenericColor_2_Color(genericColor) }
 
-    return Colors.ColorPaletteResponse.newBuilder().addAllPalette(palette).build()
+    return ColorPaletteResponse.newBuilder().addAllPalette(palette).build()
 }
