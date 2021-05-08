@@ -22,7 +22,7 @@ class GRpcRequestBuilder(private val serviceDescriptor: ServiceDescriptor) :
             if (isReflectable(descriptor.requestMarshaller) && isReflectable(descriptor.responseMarshaller)) {
                 builder.addRequest(
                     RequestDetails(
-                        descriptor.fullMethodName,
+                        descriptor.fullMethodName.replace(".", "/"),
                         RequestData(
                             GRpcStrategy.GRpcParams(descriptor as MethodDescriptor<MessageOrBuilder, *>),
                             GRpcStrategy.GRpcResponse(descriptor.responseMarshaller as MethodDescriptor.ReflectableMarshaller<*>)
@@ -35,7 +35,7 @@ class GRpcRequestBuilder(private val serviceDescriptor: ServiceDescriptor) :
 
     private fun isReflectable(requestMarshaller: MethodDescriptor.Marshaller<out Any>): Boolean =
         requestMarshaller::class.functions.stream()
-            .anyMatch { it.name == GET_MESSAGE_PROTOTYPE } && requestMarshaller::class.java.isAssignableFrom(
-            MethodDescriptor.ReflectableMarshaller::class.java
+            .anyMatch { it.name == GET_MESSAGE_PROTOTYPE } && MethodDescriptor.ReflectableMarshaller::class.java.isAssignableFrom(
+            requestMarshaller::class.java
         )
 }
