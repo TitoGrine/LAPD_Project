@@ -148,3 +148,8 @@ task startProtobufExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.jetbrains.middleware.ProtobufExample'
 }
+
+task startGrpcExample(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'org.jetbrains.middleware.GRpcExample'
+}

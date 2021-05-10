@@ -37,7 +37,7 @@ Content-Type: application/json
 {}
 
 ###
-POST http://localhost:8889/com/grpc/models/ColorsService/convertColor
+POST http://localhost:8889/convertColor
 Content-Type: application/json
 
 {
@@ -56,5 +56,5 @@ Content-Type: application/json
 
 
 ###
-POST http://localhost:8889/com/grpc/models/ColorsService/getRandomHexColor
+POST http://localhost:8889/getRandomHexColor
 

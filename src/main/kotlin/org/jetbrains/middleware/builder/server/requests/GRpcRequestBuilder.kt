@@ -22,7 +22,7 @@ class GRpcRequestBuilder(private val serviceDescriptor: ServiceDescriptor) :
             if (isReflectable(descriptor.requestMarshaller) && isReflectable(descriptor.responseMarshaller)) {
                 builder.addRequest(
                     RequestDetails(
-                        descriptor.fullMethodName.replace(".", "/"),
+                        descriptor.fullMethodName.removePrefix("${serviceDescriptor.name}/"),
                         RequestData(
                             GRpcStrategy.GRpcParams(descriptor as MethodDescriptor<MessageOrBuilder, *>),
                             GRpcStrategy.GRpcResponse(descriptor.responseMarshaller as MethodDescriptor.ReflectableMarshaller<*>)
