@@ -28,7 +28,8 @@ fun Route.hexRouting() {
             if (!conversionRequest.color.colorDef.hasHexMode())
                 call.respondText("Color Mode must be HEX", status = HttpStatusCode.BadRequest)
 
-            val genericConversionRequest = ConversionRequest_2_GenericConversionRequest(conversionRequest)
+            val genericConversionRequest =
+                ConversionRequest_2_GenericConversionRequest(conversionRequest)
 
             if (genericConversionRequest == null)
                 call.respondText("Error converting color", status = HttpStatusCode.InternalServerError)
