@@ -1,26 +1,18 @@
-package com.proto.routes
+package com.apache.routes
 
+import com.apache.converters.GenericColor_2_Color
 import com.generic.controllers.buildRGBColor
-import com.generic.controllers.convertColor
-import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomRGBColor
-import com.proto.converters.*
-import com.proto.models.Colors
-import com.proto.printCall
 import io.ktor.application.*
-import io.ktor.http.*
-import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
 fun Route.rgbRouting() {
     route("/rgb") {
         get("/random") {
-            printCall("/rgb/random")
-
             call.respond(GenericColor_2_Color(buildRGBColor(getRandomRGBColor())))
         }
-        post("/convert") {
+        /*post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
 
             printCall("/rgb/convert")
@@ -63,7 +55,7 @@ fun Route.rgbRouting() {
 
                 call.respond(paletteResponse)
             }
-        }
+        }*/
     }
 }
 
