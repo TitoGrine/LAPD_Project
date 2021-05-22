@@ -3,30 +3,30 @@ package com.apache.routes
 import com.apache.converters.*
 import com.apache.models.Colors
 import com.apache.printCall
-import com.generic.controllers.buildRGBColor
+import com.generic.controllers.buildHSVColor
 import com.generic.controllers.convertColor
 import com.generic.controllers.generatePalette
-import com.generic.controllers.getRandomRGBColor
+import com.generic.controllers.getRandomHSVColor
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 
-fun Route.rgbRouting() {
-    route("/rgb") {
+fun Route.hsvRouting() {
+    route("/hsv") {
         get("/random") {
-            printCall("/rgb/random")
+            printCall("/hsv/random")
 
-            call.respond(GenericColor_2_Color(buildRGBColor(getRandomRGBColor())))
+            call.respond(GenericColor_2_Color(buildHSVColor(getRandomHSVColor())))
         }
         post("/convert") {
             val conversionRequest = call.receive<Colors.ColorConversionRequest>()
 
-            printCall("/rgb/convert")
+            printCall("/hsv/convert")
 
-            if (!conversionRequest.color.colorDef.hasRgbMode())
-                call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)
+            if (!conversionRequest.color.colorDef.hasHsvMode())
+                call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
 
             val genericConversionRequest =
                 ConversionRequest_2_GenericConversionRequest(conversionRequest)
@@ -46,10 +46,10 @@ fun Route.rgbRouting() {
         post("/palette") {
             val paletteRequest = call.receive<Colors.ColorPaletteRequest>()
 
-            printCall("/rgb/palette")
+            printCall("/hsv/palette")
 
-            if (!paletteRequest.color.colorDef.hasRgbMode())
-                call.respondText("Color Mode must be RGB", status = HttpStatusCode.BadRequest)
+            if (!paletteRequest.color.colorDef.hasHsvMode())
+                call.respondText("Color Mode must be HSV", status = HttpStatusCode.BadRequest)
 
             val genericPaletteRequest = PaletteRequest_2_GenericPaletteRequest(paletteRequest)
 
@@ -68,8 +68,8 @@ fun Route.rgbRouting() {
     }
 }
 
-fun Application.registerRGBRoutes() {
+fun Application.registerHSVRoutes() {
     routing {
-        rgbRouting()
+        hsvRouting()
     }
 }

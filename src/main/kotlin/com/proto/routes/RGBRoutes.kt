@@ -1,12 +1,12 @@
-package com.apache.routes
+package com.proto.routes
 
-import com.apache.converters.*
-import com.apache.models.Colors
-import com.apache.printCall
 import com.generic.controllers.buildRGBColor
 import com.generic.controllers.convertColor
 import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomRGBColor
+import com.proto.converters.*
+import com.proto.models.Colors
+import com.proto.printCall
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*

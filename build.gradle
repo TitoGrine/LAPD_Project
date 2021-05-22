@@ -145,6 +145,11 @@ task startProtobufServer(type: JavaExec) {
     mainClass = 'io.ktor.server.netty.EngineMain'
 }
 
+task startApacheAvroServer(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.apache.Application'
+}
+
 task startProtobufExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.jetbrains.middleware.ProtobufExample'
