@@ -1,4 +1,4 @@
-@file:JvmName("Application")
+@file:JvmName("ApacheAvroApplication")
 package com.apache
 
 import com.apache.routes.registerCMYKRoutes
@@ -12,23 +12,26 @@ import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit { start(args[0].toInt()) }
 
-@kotlinx.serialization.ExperimentalSerializationApi
-fun Application.module(testing: Boolean = false) {
-    install(ContentNegotiation) {
-        serialization(ContentType.Application.Any, Avro.default)
-    }
-
-    routing {
-        get("/") {
-            call.respondText("Hello, world!")
+fun start(port: Int): NettyApplicationEngine {
+    return embeddedServer(Netty, port) {
+        install(ContentNegotiation) {
+            serialization(ContentType.Application.Any, Avro.default)
         }
-    }
 
-    registerHexRoutes()
-    registerRGBRoutes()
-    registerCMYKRoutes()
-    registerHSVRoutes()
+        routing {
+            get("/") {
+                call.respondText("Hello, world!")
+            }
+        }
+
+        registerHexRoutes()
+        registerRGBRoutes()
+        registerCMYKRoutes()
+        registerHSVRoutes()
+    }.start(wait = true)
 }

@@ -142,12 +142,14 @@ task startJsonRpcExample(type: JavaExec) {
 
 task startProtobufServer(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'io.ktor.server.netty.EngineMain'
+    main = 'com.proto.ProtobufApplication'
+    args '6006'
 }
 
 task startApacheAvroServer(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'com.apache.Application'
+    main = 'com.apache.ApacheAvroApplication'
+    args '6060'
 }
 
 task startProtobufExample(type: JavaExec) {

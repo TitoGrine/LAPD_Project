@@ -7,11 +7,15 @@ import com.generic.controllers.buildRGBColor
 import com.generic.controllers.convertColor
 import com.generic.controllers.generatePalette
 import com.generic.controllers.getRandomRGBColor
+import com.github.avrokotlin.avro4k.Avro
+import com.github.avrokotlin.avro4k.io.AvroBinaryOutputStream
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import java.io.File
+import java.io.OutputStream
 
 fun Route.rgbRouting() {
     route("/rgb") {
