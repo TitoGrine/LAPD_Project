@@ -56,3 +56,38 @@ Content-Type: application/json
   }
 ]
 
+###
+POST http://localhost:6061/hex/convert
+Content-Type: application/json
+
+{
+  "colorMode": "HEX_MODE",
+  "color": {
+    "colorDef": {
+      "cmykMode": {
+        "cyan": 0.5,
+        "magenta": 0.5,
+        "yellow": 0.3,
+        "key": 0.1
+      }
+    }
+  }
+}
+
+###
+POST http://localhost:6061/rgb/convert
+Content-Type: application/json
+
+{
+  "colorMode": "RGB_MODE",
+  "color": {
+    "colorDef": {
+      "rgbMode": {
+        "red": 0,
+        "green": 0,
+        "blue": 0
+      }
+    }
+  }
+}
+

@@ -1,9 +1,10 @@
+@file:JvmName("ApacheAvroExample")
 package org.jetbrains.middleware
 
-import com.google.protobuf.*
 import com.apache.models.Colors
 import io.ktor.client.statement.*
-import org.jetbrains.middleware.builder.*
+import org.jetbrains.middleware.builder.RequestData
+import org.jetbrains.middleware.builder.RequestDetails
 import org.jetbrains.middleware.builder.server.MiddlewareServer
 import org.jetbrains.middleware.builder.strategies.AvroStrategy
 
@@ -17,8 +18,8 @@ fun main() {
             RequestDetails(
                 "/hex/random",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.Color::class.java),
-                    AvroStrategy.AvroResponse(Colors.Color::class.java)
+                    AvroStrategy.AvroParams(Colors.Color::class.java, Colors.Color.serializer()),
+                    AvroStrategy.AvroResponse(Colors.Color::class.java, Colors.Color.serializer())
                 )
             )
         )
@@ -26,8 +27,17 @@ fun main() {
             RequestDetails(
                 "/hex/convert",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java),
-                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse::class.java)
+                    AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse::class.java, Colors.ColorConversionResponse.serializer())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "/rgb/convert",
+                RequestData(
+                    AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse::class.java, Colors.ColorConversionResponse.serializer())
                 )
             )
         )
