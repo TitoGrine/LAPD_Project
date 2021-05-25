@@ -1,4 +1,4 @@
-# Instalation steps
+# Installation steps
 
 ## Requirements
 - Java, preferably Java 11 or higher
@@ -8,22 +8,26 @@
 ## Running
 There are several tasks that can be run for the different examples. For this entire section, gradlew will be mentioned but please note that if you use Windows, gradlew.bat should be used.
 
-### Running the Protobuf Color Server
+### Running the server and Middleware library for the Protobuf Color server respectively:
 ```bash
-./gradlew run
-```
-
-### Running the JSON-RPC Color Server
-```bash
-./gradlew startServer
-```
-
-### Running the Middleware library for the Protobuf Color server
-```bash
+./gradlew startProtobufServer
 ./gradlew startProtobufExample
 ```
 
-### Running the Middleware library for the JSON-RPC Color server
+### Running the server and Middleware library for the JSON-RPC Color server respectively:
 ```bash
+./gradlew startJPRCServer
 ./gradlew startJsonRpcExample
+```
+
+### Running the server and Middleware library for the JSON-RPC Color server respectively:
+```bash
+./gradlew startApacheAvroServer
+./gradlew startApacheAvroExample
+```
+
+### Running the server and Middleware library for the gRPC Color server respectively:
+```bash
+./gradlew startGRPCServer
+./gradlew startGrpcExample
 ```
