@@ -1,11 +1,11 @@
-@file:JvmName("ProtobufApplication")
-package com.proto
+@file:JvmName("ApacheAvroApplication")
+package com.apache
 
-import com.proto.routes.registerCMYKRoutes
-import com.proto.routes.registerHSVRoutes
-import com.proto.routes.registerHexRoutes
-import com.proto.routes.registerRGBRoutes
-import com.proto.serializers.ColorsSerializer
+import com.apache.routes.registerCMYKRoutes
+import com.apache.routes.registerHSVRoutes
+import com.apache.routes.registerHexRoutes
+import com.apache.routes.registerRGBRoutes
+import com.github.avrokotlin.avro4k.Avro
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -15,14 +15,12 @@ import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 
-fun main(args: Array<String>): Unit {
-    start(args[0].toInt())
-}
+fun main(args: Array<String>): Unit { start(args[0].toInt()) }
 
 fun start(port: Int): NettyApplicationEngine {
     return embeddedServer(Netty, port) {
         install(ContentNegotiation) {
-            register(ContentType.Application.ProtoBuf, ColorsSerializer)
+            serialization(ContentType.Application.Any, Avro.default)
         }
 
         routing {
@@ -31,9 +29,9 @@ fun start(port: Int): NettyApplicationEngine {
             }
         }
 
+        registerHexRoutes()
         registerRGBRoutes()
         registerCMYKRoutes()
         registerHSVRoutes()
-        registerHexRoutes()
     }.start(wait = true)
 }
