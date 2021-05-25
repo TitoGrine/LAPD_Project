@@ -19,7 +19,7 @@ fun main() {
                 "/hex/random",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.Color::class.java, Colors.Color.serializer()),
-                    AvroStrategy.AvroResponse(Colors.Color::class.java, Colors.Color.serializer())
+                    AvroStrategy.AvroResponse(Colors.Color.serializer())
                 )
             )
         )
@@ -28,7 +28,7 @@ fun main() {
                 "/hex/convert",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
-                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse::class.java, Colors.ColorConversionResponse.serializer())
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
                 )
             )
         )
@@ -37,17 +37,16 @@ fun main() {
                 "/rgb/convert",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
-                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse::class.java, Colors.ColorConversionResponse.serializer())
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
                 )
             )
         )
-            /*
         .addRequest(
             RequestDetails(
                 "hex/palette",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
                 )
             )
         )
@@ -55,8 +54,8 @@ fun main() {
             RequestDetails(
                 "/cmyk/random",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.Color.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.Color.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.Color::class.java, Colors.Color.serializer()),
+                    AvroStrategy.AvroResponse(Colors.Color.serializer())
                 )
             )
         )
@@ -64,8 +63,8 @@ fun main() {
             RequestDetails(
                 "cmyk/convert",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.ColorConversionRequest.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
                 )
             )
         )
@@ -73,8 +72,8 @@ fun main() {
             RequestDetails(
                 "/hsv/random",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.Color.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.Color.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.Color::class.java, Colors.Color.serializer()),
+                    AvroStrategy.AvroResponse(Colors.Color.serializer())
                 )
             )
         )
@@ -82,8 +81,8 @@ fun main() {
             RequestDetails(
                 "hsv/convert",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.ColorConversionRequest.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
                 )
             )
         )
@@ -91,12 +90,11 @@ fun main() {
             RequestDetails(
                 "hsv/palette",
                 RequestData(
-                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest.newBuilder()),
-                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.getDescriptor())
+                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
                 )
             )
         )
-        */
         .build()
         .start()
 }

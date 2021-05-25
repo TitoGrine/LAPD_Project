@@ -45,7 +45,7 @@ class AvroStrategy : APITypeStrategy<ByteArray, HttpResponse> {
         }
     }
 
-    data class AvroResponse<T : Any>(val data: Class<T>, val deserializer: DeserializationStrategy<T>) :
+    data class AvroResponse<T : Any>(val deserializer: DeserializationStrategy<T>) :
         RequestResponse<ByteArray, HttpResponse> {
         private val jsonMapper = Gson()
 
