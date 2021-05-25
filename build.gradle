@@ -28,7 +28,7 @@ plugins {
 }
 
 group 'org.feup.lapd.middleware'
-version '1.0.0'
+version '1.0.1'
 def ktor_version = '1.5.2'
 def arrow_version = "0.13.1"
 def protobufVersion = '3.12.2'
