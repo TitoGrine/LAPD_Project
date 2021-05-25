@@ -1,12 +1,12 @@
 @file:JvmName("GRpcExample")
 
-package org.jetbrains.middleware
+package org.feup.lapd.middleware
 
 import com.google.protobuf.MessageOrBuilder
 import com.grpc.models.ColorsServiceGrpcKt
-import org.jetbrains.middleware.builder.server.MiddlewareServer
-import org.jetbrains.middleware.builder.server.requests.GRpcRequestBuilder
-import org.jetbrains.middleware.builder.strategies.GRpcStrategy
+import org.feup.lapd.middleware.builder.server.MiddlewareServer
+import org.feup.lapd.middleware.builder.server.requests.GRpcRequestBuilder
+import org.feup.lapd.middleware.builder.strategies.GRpcStrategy
 
 
 fun main() {

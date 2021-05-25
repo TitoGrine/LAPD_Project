@@ -1,12 +1,12 @@
 @file:JvmName("ApacheAvroExample")
-package org.jetbrains.middleware
+package org.feup.lapd.middleware
 
 import com.apache.models.Colors
 import io.ktor.client.statement.*
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestDetails
-import org.jetbrains.middleware.builder.server.MiddlewareServer
-import org.jetbrains.middleware.builder.strategies.AvroStrategy
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestDetails
+import org.feup.lapd.middleware.builder.server.MiddlewareServer
+import org.feup.lapd.middleware.builder.strategies.AvroStrategy
 
 // Example to play around with
 fun main() {

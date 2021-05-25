@@ -24,10 +24,11 @@ plugins {
     id 'application'
 
     id 'idea'
+    id 'maven-publish'
 }
 
 group 'org.feup.lapd.middleware'
-version '1.0-SNAPSHOT'
+version '1.0.0'
 def ktor_version = '1.5.2'
 def arrow_version = "0.13.1"
 def protobufVersion = '3.12.2'
@@ -138,7 +139,7 @@ task startJRPCClient(type: JavaExec) {
 
 task startJsonRpcExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.jetbrains.middleware.JsonRpcExample'
+    main = 'org.feup.lapd.middleware.JsonRpcExample'
 }
 
 task startProtobufServer(type: JavaExec) {
@@ -155,15 +156,15 @@ task startApacheAvroServer(type: JavaExec) {
 
 task startProtobufExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.jetbrains.middleware.ProtobufExample'
+    main = 'org.feup.lapd.middleware.ProtobufExample'
 }
 
 task startGrpcExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.jetbrains.middleware.GRpcExample'
+    main = 'org.feup.lapd.middleware.GRpcExample'
 }
 
 task startApacheAvroExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    main = 'org.jetbrains.middleware.ApacheAvroExample'
+    main = 'org.feup.lapd.middleware.ApacheAvroExample'
 }

@@ -1,12 +1,12 @@
 @file:JvmName("ProtobufExample")
-package org.jetbrains.middleware
+package org.feup.lapd.middleware
 
 import com.google.protobuf.*
 import com.proto.models.Colors
 import io.ktor.client.statement.*
-import org.jetbrains.middleware.builder.*
-import org.jetbrains.middleware.builder.server.MiddlewareServer
-import org.jetbrains.middleware.builder.strategies.ProtobufStrategy
+import org.feup.lapd.middleware.builder.*
+import org.feup.lapd.middleware.builder.server.MiddlewareServer
+import org.feup.lapd.middleware.builder.strategies.ProtobufStrategy
 
 // Example to play around with
 fun main() {
