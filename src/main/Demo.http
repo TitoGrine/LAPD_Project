@@ -58,3 +58,51 @@ Content-Type: application/json
 ###
 POST http://localhost:8889/getRandomHexColor
 
+###
+POST http://localhost:6061/cmyk/convert
+Content-Type: application/json
+
+{
+  "colorMode": "RGB_MODE",
+  "color": {
+    "colorDef": {
+      "cmykMode": {
+        "cyan": 0.5,
+        "magenta": 0.5,
+        "yellow": 0.3,
+        "key": 0.1
+      }
+    }
+  }
+}
+
+###
+POST http://localhost:6061/rgb/convert
+Content-Type: application/json
+
+{
+  "colorMode": "CMYK_MODE",
+  "color": {
+    "colorDef": {
+      "rgbMode": {
+        "red": 130,
+        "green": 40,
+        "blue": 8
+      }
+    }
+  }
+}
+
+###
+POST http://localhost:6061/hex/palette
+Content-Type: application/json
+
+{
+  "color": {
+    "colorDef": {
+      "hexMode": {
+        "code": "#CC6699"
+      }
+    }
+  }
+}
