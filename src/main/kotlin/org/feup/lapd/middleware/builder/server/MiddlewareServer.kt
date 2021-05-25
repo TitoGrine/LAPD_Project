@@ -61,8 +61,8 @@ class MiddlewareServer<T, K> private constructor(
     }
 
 
-    fun start(): NettyApplicationEngine {
-        return embeddedServer(Netty, port = portToServe) {
+    fun start(factory: ApplicationEngineFactory<*, *> = Netty): ApplicationEngine {
+        return embeddedServer(factory, port = portToServe) {
             install(ContentNegotiation) {
                 json()
             }
