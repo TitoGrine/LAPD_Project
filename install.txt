@@ -20,7 +20,7 @@ There are several tasks that can be run for the different examples. For this ent
 ./gradlew startJsonRpcExample
 ```
 
-### Running the server and Middleware library for the JSON-RPC Color server respectively:
+### Running the server and Middleware library for the Apache Avro Color server respectively:
 ```bash
 ./gradlew startApacheAvroServer
 ./gradlew startApacheAvroExample
