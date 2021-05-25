@@ -34,6 +34,24 @@ fun main() {
         )
         .addRequest(
             RequestDetails(
+                "/hex/palette",
+                RequestData(
+                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "/rgb/random",
+                RequestData(
+                    AvroStrategy.AvroParams(Colors.Color::class.java, Colors.Color.serializer()),
+                    AvroStrategy.AvroResponse(Colors.Color.serializer())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
                 "/rgb/convert",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
@@ -43,7 +61,7 @@ fun main() {
         )
         .addRequest(
             RequestDetails(
-                "hex/palette",
+                "/rgb/palette",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
                     AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
@@ -61,10 +79,19 @@ fun main() {
         )
         .addRequest(
             RequestDetails(
-                "cmyk/convert",
+                "/cmyk/convert",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
                     AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
+                )
+            )
+        )
+        .addRequest(
+            RequestDetails(
+                "/cmyk/palette",
+                RequestData(
+                    AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
+                    AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
                 )
             )
         )
@@ -79,7 +106,7 @@ fun main() {
         )
         .addRequest(
             RequestDetails(
-                "hsv/convert",
+                "/hsv/convert",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorConversionRequest::class.java, Colors.ColorConversionRequest.serializer()),
                     AvroStrategy.AvroResponse(Colors.ColorConversionResponse.serializer())
@@ -88,7 +115,7 @@ fun main() {
         )
         .addRequest(
             RequestDetails(
-                "hsv/palette",
+                "/hsv/palette",
                 RequestData(
                     AvroStrategy.AvroParams(Colors.ColorPaletteRequest::class.java, Colors.ColorPaletteRequest.serializer()),
                     AvroStrategy.AvroResponse(Colors.ColorPaletteResponse.serializer())
