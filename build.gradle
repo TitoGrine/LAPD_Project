@@ -28,7 +28,7 @@ plugins {
 }
 
 group 'org.feup.lapd.middleware'
-version '1.0.1'
+version '1.0.2'
 def ktor_version = '1.5.2'
 def arrow_version = "0.13.1"
 def protobufVersion = '3.12.2'
@@ -167,4 +167,12 @@ task startGrpcExample(type: JavaExec) {
 task startApacheAvroExample(type: JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'org.feup.lapd.middleware.ApacheAvroExample'
+}
+
+publishing {
+    publications {
+        myLibrary(MavenPublication) {
+            from components.java
+        }
+    }
 }
