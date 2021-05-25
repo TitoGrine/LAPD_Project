@@ -111,36 +111,36 @@ fun GenericColor_2_Color(genericColor: GenericColors.Color): Colors.Color {
 }
 
 fun ConversionRequest_2_GenericConversionRequest(conversionRequest: Colors.ColorConversionRequest?): GenericColors.ColorConversionRequest? {
-    if (conversionRequest == null) return null
+    return conversionRequest?.let {
+        val genericColorMode: GenericColors.ColorMode = ColorMode_2_GenericColorMode(conversionRequest.colorMode)
+        val genericColor: GenericColors.Color = Color_2_GenericColor(conversionRequest.color)
 
-    val genericColorMode: GenericColors.ColorMode = ColorMode_2_GenericColorMode(conversionRequest.colorMode)
-    val genericColor: GenericColors.Color = Color_2_GenericColor(conversionRequest.color)
-
-    return GenericColors.ColorConversionRequest(genericColorMode, genericColor)
+        return GenericColors.ColorConversionRequest(genericColorMode, genericColor)
+    }
 }
 
 fun GenericConversionResponse_2_ConversionResponse(genericConversionResponse: GenericColors.ColorConversionResponse?): Colors.ColorConversionResponse? {
-    if (genericConversionResponse == null) return null
+    return genericConversionResponse?.let {
+        val colorMode: Colors.ColorMode = GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
+        val color: Colors.Color = GenericColor_2_Color(genericConversionResponse.color)
 
-    val colorMode: Colors.ColorMode = GenericColorMode_2_ColorMode(genericConversionResponse.colorMode)
-    val color: Colors.Color = GenericColor_2_Color(genericConversionResponse.color)
-
-    return Colors.ColorConversionResponse(colorMode, color)
+        return Colors.ColorConversionResponse(colorMode, color)
+    }
 }
 
 fun PaletteRequest_2_GenericPaletteRequest(paletteRequest: Colors.ColorPaletteRequest?): GenericColors.ColorPaletteRequest? {
-    if (paletteRequest == null) return null
+    return paletteRequest?.let {
+        val color: GenericColors.Color = Color_2_GenericColor(paletteRequest.color)
 
-    val color: GenericColors.Color = Color_2_GenericColor(paletteRequest.color)
-
-    return GenericColors.ColorPaletteRequest(color)
+        return GenericColors.ColorPaletteRequest(color)
+    }
 }
 
 fun GenericPaletteResponse_2_PaletteResponse(genericPaletteResponse: GenericColors.ColorPaletteResponse?): Colors.ColorPaletteResponse? {
-    if (genericPaletteResponse == null) return null
+    return genericPaletteResponse?.let {
+        val palette: List<Colors.Color> =
+            genericPaletteResponse.palette.map { genericColor -> GenericColor_2_Color(genericColor) }
 
-    val palette: List<Colors.Color> =
-        genericPaletteResponse.palette.map { genericColor -> GenericColor_2_Color(genericColor) }
-
-    return Colors.ColorPaletteResponse(palette)
+        return Colors.ColorPaletteResponse(palette)
+    }
 }
