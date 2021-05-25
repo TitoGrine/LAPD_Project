@@ -1,4 +1,4 @@
-package org.jetbrains.middleware.builder.strategies
+package org.feup.lapd.middleware.builder.strategies
 
 import arrow.core.Either
 import com.github.avrokotlin.avro4k.Avro
@@ -11,9 +11,9 @@ import io.ktor.content.*
 import io.ktor.http.*
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerializationStrategy
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestParams
-import org.jetbrains.middleware.builder.RequestResponse
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestParams
+import org.feup.lapd.middleware.builder.RequestResponse
 
 
 class AvroStrategy : APITypeStrategy<ByteArray, HttpResponse> {

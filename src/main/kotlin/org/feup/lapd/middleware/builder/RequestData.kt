@@ -1,4 +1,4 @@
-package org.jetbrains.middleware.builder
+package org.feup.lapd.middleware.builder
 
 import arrow.core.Either
 

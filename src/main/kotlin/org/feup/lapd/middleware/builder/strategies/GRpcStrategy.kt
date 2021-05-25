@@ -1,4 +1,4 @@
-package org.jetbrains.middleware.builder.strategies
+package org.feup.lapd.middleware.builder.strategies
 
 import arrow.core.Either
 import com.google.protobuf.GeneratedMessageV3
@@ -10,9 +10,9 @@ import io.grpc.CallOptions
 import io.grpc.ManagedChannelBuilder
 import io.grpc.MethodDescriptor
 import io.grpc.stub.ClientCalls
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestParams
-import org.jetbrains.middleware.builder.RequestResponse
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestParams
+import org.feup.lapd.middleware.builder.RequestResponse
 import java.util.concurrent.Executors
 import kotlin.reflect.full.isSubclassOf
 

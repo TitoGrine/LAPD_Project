@@ -1,10 +1,10 @@
-package org.jetbrains.middleware.builder.strategies
+package org.feup.lapd.middleware.builder.strategies
 
 import arrow.core.Either
 import com.google.protobuf.Descriptors
 import com.google.protobuf.DynamicMessage
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestParams
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestParams
 import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat
 import io.ktor.client.*
@@ -13,7 +13,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.content.*
 import io.ktor.http.*
-import org.jetbrains.middleware.builder.RequestResponse
+import org.feup.lapd.middleware.builder.RequestResponse
 
 
 class ProtobufStrategy : APITypeStrategy<Message, HttpResponse> {

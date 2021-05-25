@@ -1,4 +1,4 @@
-package org.jetbrains.middleware.builder.server
+package org.feup.lapd.middleware.builder.server
 
 import arrow.core.Either
 import io.ktor.application.*
@@ -10,10 +10,10 @@ import io.ktor.routing.*
 import io.ktor.serialization.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestDetails
-import org.jetbrains.middleware.builder.server.requests.RequestBuilder
-import org.jetbrains.middleware.builder.strategies.APITypeStrategy
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestDetails
+import org.feup.lapd.middleware.builder.server.requests.RequestBuilder
+import org.feup.lapd.middleware.builder.strategies.APITypeStrategy
 import java.net.URI
 
 class MiddlewareServer<T, K> private constructor(

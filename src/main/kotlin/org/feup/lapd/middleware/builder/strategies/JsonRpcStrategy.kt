@@ -1,13 +1,13 @@
-package org.jetbrains.middleware.builder.strategies
+package org.feup.lapd.middleware.builder.strategies
 
 import arrow.core.Either
 import com.google.gson.Gson
 import com.google.gson.JsonParser
 import kotlinx.coroutines.future.await
 import org.eclipse.lsp4j.jsonrpc.Launcher
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestParams
-import org.jetbrains.middleware.builder.RequestResponse
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestParams
+import org.feup.lapd.middleware.builder.RequestResponse
 import java.lang.reflect.Type
 import java.net.Socket
 import java.util.concurrent.CompletableFuture

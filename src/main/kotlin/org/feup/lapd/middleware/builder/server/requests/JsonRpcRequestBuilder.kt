@@ -1,10 +1,10 @@
-package org.jetbrains.middleware.builder.server.requests
+package org.feup.lapd.middleware.builder.server.requests
 
 import org.eclipse.lsp4j.jsonrpc.services.ServiceEndpoints
-import org.jetbrains.middleware.builder.RequestData
-import org.jetbrains.middleware.builder.RequestDetails
-import org.jetbrains.middleware.builder.server.MiddlewareServer
-import org.jetbrains.middleware.builder.strategies.JsonRpcStrategy
+import org.feup.lapd.middleware.builder.RequestData
+import org.feup.lapd.middleware.builder.RequestDetails
+import org.feup.lapd.middleware.builder.server.MiddlewareServer
+import org.feup.lapd.middleware.builder.strategies.JsonRpcStrategy
 import java.util.concurrent.CompletableFuture
 
 class JsonRpcRequestBuilder(private val interfaceClass: Class<*>) : RequestBuilder<List<*>, CompletableFuture<*>> {
